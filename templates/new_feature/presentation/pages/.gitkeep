@@ -1,0 +1,2 @@
+// Full-screen page widgets go here (Scaffold-level).
+// Use ConsumerWidget, ref.watch() for state, ref.listen() for side effects.

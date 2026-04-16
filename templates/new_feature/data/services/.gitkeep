@@ -1,0 +1,2 @@
+// API services and external data sources go here.
+// Thin wrappers around HTTP clients, Pigeon APIs, etc.

@@ -1,0 +1,3 @@
+// Value objects go here.
+// @freezed classes defined by attributes, self-validating.
+// Example: Amount, EmailAddress, TransactionId

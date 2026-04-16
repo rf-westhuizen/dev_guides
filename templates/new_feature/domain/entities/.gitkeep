@@ -1,0 +1,3 @@
+// Domain entities go here.
+// @freezed classes with identity (id field). Pure Dart only.
+// NO fromJson — entities don't know about serialization.

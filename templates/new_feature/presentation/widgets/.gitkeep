@@ -1,0 +1,3 @@
+// Reusable UI components go here.
+// Stateless where possible, receive data via constructor.
+// No direct repository or service access.

@@ -1,0 +1,3 @@
+// Riverpod providers go here.
+// DI wiring: service providers, DAO providers, repository providers.
+// Also AsyncNotifier/Notifier ViewModel classes.

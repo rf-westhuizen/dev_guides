@@ -1,0 +1,17 @@
+// This file is a placeholder for the src directory.
+// Create your feature directories under lib/src/features/
+//
+// Example structure:
+//   lib/src/features/my_feature/
+//     ├── data/
+//     │   ├── repositories/
+//     │   ├── services/
+//     │   └── dtos/
+//     ├── domain/
+//     │   ├── entities/
+//     │   ├── value_objects/
+//     │   └── repositories/
+//     └── presentation/
+//         ├── providers/
+//         ├── pages/
+//         └── widgets/

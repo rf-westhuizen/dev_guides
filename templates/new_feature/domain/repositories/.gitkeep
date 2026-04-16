@@ -1,0 +1,3 @@
+// Abstract repository interfaces go here.
+// Define WHAT the repository does, not HOW.
+// Infrastructure layer provides the concrete implementation.

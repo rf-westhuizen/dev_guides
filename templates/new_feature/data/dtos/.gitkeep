@@ -1,0 +1,3 @@
+// Data Transfer Objects go here.
+// @freezed classes WITH fromJson/toJson for serialization.
+// Include toEntity() and fromEntity() mapper methods.
