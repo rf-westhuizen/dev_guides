@@ -36,18 +36,22 @@ and tooling conventions. **Read this file first**, then consult reference docume
 
 ## Core Architecture: MVVM + DDD + Riverpod
 
-The Scotch Software monorepo follows a hybrid MVVM/DDD pattern with Riverpod for
-dependency injection and state management. The architecture has **four layers** with
-strict dependency rules.
+The Scotch Software monorepo follows the **same MVVM + DDD layering as the universal
+`dev-flutter` standard**, with Riverpod for dependency injection and state management.
+There are **three layers plus provider wiring**, with strict dependency rules. (This
+matches both the official Flutter architecture guide and how the bulk of the monorepo is
+actually structured — ViewModels live in `presentation/`, and the outer layer is `data/`.)
 
 ### Layer Dependency Rule (CRITICAL)
 
 ```
-Presentation → Application → Domain ← Infrastructure
-     ↓              ↓           ↑            ↑
-  [Widgets]    [Notifiers]  [Entities]  [Repo Impls]
-  [Pages]      [UseCases]  [Repo Interfaces] [Services]
-                            [Value Objects]   [DTOs]
+Presentation ──▶ Domain ◀── Data
+     │             ▲          ▲
+     │             │          │
+  Providers ───────┴──────────┘
+
+[Widgets/Pages/ViewModels]   [Repo Impls/DAOs/Services/DTOs]
+        [Entities/Value Objects/Contracts/Failures]
 ```
 
 **Dependencies point INWARD toward Domain.** The Domain layer has ZERO external
@@ -55,34 +59,43 @@ dependencies — no Flutter imports, no package imports beyond Dart core and Fre
 
 ### Layer Responsibilities
 
-**Presentation Layer** — UI only. Widgets render state, dispatch events to ViewModels.
-No business logic. No direct repository or service access. Uses `ref.watch()` for
-reactive state and `ref.read()` only inside callbacks.
-
-**Application Layer** — ViewModels (Riverpod `Notifier`/`AsyncNotifier`). Orchestrates
-data from repositories, transforms for UI, exposes state. One ViewModel per screen or
-complex widget. May contain UseCases for complex cross-repository logic.
+**Presentation Layer** — UI **and** its ViewModels. Widgets/pages render state and
+dispatch events; ViewModels (Riverpod `Notifier`/`AsyncNotifier`) orchestrate data from
+repositories, transform it for the UI, and expose state. One ViewModel per screen or
+complex widget. Widgets hold no business logic and never touch repositories/services
+directly — they go through their ViewModel. Use `ref.watch()` for reactive state and
+`ref.read()` only inside callbacks.
 
 **Domain Layer** — Pure Dart. Entities (identity-based), Value Objects (attribute-based),
-Repository interfaces (abstract classes only), and failure types. This layer defines
-the contracts; infrastructure implements them.
+repository/service interfaces (abstract classes only), and failure types. This layer
+defines the contracts; the data layer implements them. *Optional:* use-cases /
+interactors for complex cross-repository or server-side orchestration (e.g. the UART /
+card-activation server packages) — add them only when logic spans multiple repositories
+or is reused, per the official Flutter guidance.
 
-**Infrastructure Layer** — Concrete implementations. Repository implementations, Drift
-DAOs, HTTP services (Shelf servers), platform services (Pigeon APIs), DTOs with
-`fromJson`/`toJson`. This is the only layer that talks to the outside world.
+**Data Layer** — Concrete implementations that talk to the outside world: repository
+implementations, Drift DAOs, HTTP services (Shelf servers), platform services (Pigeon
+APIs), and DTOs with `fromJson`/`toJson`. Mappers convert DTOs to domain models. This is
+the only layer that reaches a database, API, or device.
+
+**Providers** — Riverpod dependency wiring. Connect `data/` implementations to
+presentation-facing ViewModels via feature-scoped providers (kept in
+`presentation/providers/`). Do not turn `core/` into a global DI dumping ground.
 
 ### Decision Tree: What Goes Where?
 
 ```
 Is it a widget or page?                    → Presentation
-Is it a Riverpod provider or Notifier?     → Application
+Is it a ViewModel/Notifier for a screen?   → Presentation
+Is it Riverpod provider / DI wiring?       → Providers
 Is it pure business logic (no imports)?    → Domain
-Does it talk to a database/API/device?     → Infrastructure
+Does it talk to a database/API/device?     → Data
 
-Is it a data class with fromJson?          → Infrastructure (DTO)
+Is it a data class with fromJson?          → Data (DTO)
 Is it a data class without fromJson?       → Domain (Entity/VO)
-Is it an abstract class with methods?      → Domain (Repository interface)
-Is it a concrete class implementing above? → Infrastructure (Repository impl)
+Is it an abstract repository/service?      → Domain (interface)
+Is it a concrete repository/service impl?  → Data
+Is it complex cross-repo orchestration?    → Domain use-case (optional)
 ```
 
 ## Scotch Software Monorepo Package Conventions
@@ -130,7 +143,7 @@ scotch_launcher (app)
 
 NEVER: db_package depends on _api or _service
 NEVER: _api depends on _service
-NEVER: domain layer depends on infrastructure
+NEVER: domain layer depends on data
 ```
 
 ## File Structure Within a Package

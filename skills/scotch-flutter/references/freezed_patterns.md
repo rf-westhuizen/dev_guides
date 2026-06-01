@@ -37,7 +37,7 @@ abstract class User with _$User {
     @Default(UserRole.standard) UserRole role,
   }) = _User;
 
-  // Add fromJson ONLY if this is a DTO (infrastructure layer)
+  // Add fromJson ONLY if this is a DTO (data layer)
   // Domain entities do NOT have fromJson
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }
@@ -137,9 +137,9 @@ abstract class EmailAddress with _$EmailAddress {
 }
 ```
 
-## DTOs with JSON Serialization (Infrastructure Layer ONLY)
+## DTOs with JSON Serialization (Data Layer ONLY)
 
-DTOs live in the infrastructure layer and handle serialization.
+DTOs live in the data layer and handle serialization.
 They map to/from domain entities via extension methods or mapper classes.
 
 ```dart
@@ -225,7 +225,7 @@ return switch (result) {
 payment_transaction.dart          → Entity (domain layer)
 payment_transaction.freezed.dart  → Generated Freezed code
 payment_transaction.g.dart        → Generated JSON serialization
-payment_transaction_dto.dart      → DTO (infrastructure layer)
+payment_transaction_dto.dart      → DTO (data layer)
 payment_state.dart                → Union type state
 ```
 

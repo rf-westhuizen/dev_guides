@@ -11,9 +11,14 @@ The architecture aligns with:
 - DDD bounded contexts mapped to monorepo packages
 - VGV engineering principles (strict layering, testability, consistency)
 
-## The Four Layers in Detail
+## The Layers in Detail (Presentation · Domain · Data, plus Provider wiring)
 
-### 1. Presentation Layer
+This is the same model as the universal `dev-flutter` standard and the official Flutter
+architecture guide: ViewModels are part of the **Presentation** layer (they live in
+`presentation/providers/`), and the outer implementation layer is **Data**. Use-cases are
+an optional addition to the Domain layer for complex orchestration — not a separate layer.
+
+### 1. Presentation Layer — Views
 
 **Purpose:** Render UI and capture user interactions. Zero business logic.
 
@@ -71,14 +76,16 @@ class PaymentPage extends ConsumerWidget {
 }
 ```
 
-### 2. Application Layer (ViewModels / Notifiers)
+### 2. Presentation Layer — ViewModels / Notifiers
 
 **Purpose:** Orchestrate data flow between UI and domain/data layers.
-Transform repository data into UI-ready state. Handle user actions.
+Transform repository data into UI-ready state. Handle user actions. ViewModels are part
+of the Presentation layer and live alongside their providers in `presentation/providers/`.
 
 **Contains:**
 - Riverpod `Notifier` / `AsyncNotifier` classes (the ViewModels)
-- UseCases (for complex multi-repository orchestration)
+- UseCases *(optional)* — only for complex multi-repository or server-side orchestration;
+  place them in the Domain layer (see Domain, below)
 - Providers file that wires everything together
 
 **Rules:**
@@ -142,6 +149,8 @@ stable core that rarely changes.
 - Value Objects (immutable, defined by attributes, self-validating)
 - Repository interfaces (abstract classes defining contracts)
 - Failure types (typed error hierarchy)
+- Use-cases / interactors *(optional)* — pure-Dart orchestration that spans multiple
+  repositories or is reused across ViewModels (e.g. UART / card-activation server flows)
 
 **Rules:**
 - PURE DART ONLY — no Flutter imports, no package imports beyond `freezed`
@@ -220,10 +229,11 @@ sealed class Failure with _$Failure {
 }
 ```
 
-### 4. Infrastructure Layer
+### 4. Data Layer
 
 **Purpose:** Concrete implementations that talk to the outside world.
-Databases, HTTP APIs, platform channels, file systems.
+Databases, HTTP APIs, platform channels, file systems. (Some older payment/server
+packages name this folder `infrastructure/`; new code uses `data/`.)
 
 **Contains:**
 - Repository implementations (concrete classes)
@@ -282,20 +292,20 @@ mirrors the architecture layers:
 ```dart
 // file: lib/src/features/payment/presentation/providers/payment_providers.dart
 
-// Infrastructure — Services
+// Data — Services
 @riverpod
 PaymentApiService paymentApiService(Ref ref) {
   return PaymentApiService(baseUrl: 'http://localhost:6565');
 }
 
-// Infrastructure — DAOs (from database provider)
+// Data — DAOs (from database provider)
 @riverpod
 TransactionLogsDao transactionLogsDao(Ref ref) {
   final db = ref.watch(appDatabaseProvider);
   return TransactionLogsDao(db);
 }
 
-// Infrastructure — Repository Implementation
+// Data — Repository Implementation
 @riverpod
 PaymentRepository paymentRepository(Ref ref) {
   return PaymentRepositoryImpl(
@@ -304,17 +314,18 @@ PaymentRepository paymentRepository(Ref ref) {
   );
 }
 
-// Application — ViewModel is already defined as @riverpod class above
+// Presentation — ViewModel is already defined as @riverpod class above
 ```
 
 ## Creating a New Feature Checklist
 
 When adding a new feature to any package:
 
-1. **Domain first** — Define entities, value objects, repository interface
-2. **Infrastructure** — Implement repository, create DTOs, write service/DAO
-3. **Application** — Create AsyncNotifier (ViewModel), wire providers
-4. **Presentation** — Build page and widgets consuming ViewModel state
+1. **Domain first** — Define entities, value objects, repository interface (and a
+   use-case only if the logic spans multiple repositories)
+2. **Data** — Implement repository, create DTOs, write service/DAO, add mappers
+3. **Presentation (ViewModel)** — Create AsyncNotifier (ViewModel), wire providers
+4. **Presentation (UI)** — Build page and widgets consuming ViewModel state
 5. **Tests** — Mirror the feature structure in `test/`
 6. **Barrel file** — Export public API from package barrel file
 
