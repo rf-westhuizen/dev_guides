@@ -66,12 +66,12 @@ All Flutter/Dart code must follow the `dev-flutter` standards:
 ## Key Architecture Rules
 
 1. Dependencies point inward toward the Domain layer.
-2. Domain is pure Dart with no Flutter imports and no data, infrastructure, or
+2. Domain is pure Dart with no Flutter imports and no data, provider, or
    presentation imports.
 3. Domain holds business entities, value objects, failures, state classes, and
    interface contracts.
 4. Repositories return domain types, not DTOs.
-5. ViewModels orchestrate UI state and call domain/application contracts, not
+5. ViewModels orchestrate UI state and call domain contracts, not
    raw services or HTTP clients.
 6. Use `@riverpod` codegen instead of legacy Riverpod patterns.
 7. Use `@freezed`: `abstract class` for single-constructor models and
@@ -88,7 +88,7 @@ All Flutter/Dart code must follow the `dev-flutter` standards:
 - Do not use `dynamic` for known shapes.
 - Do not pass known API contracts around as inline `Map<String, dynamic>` from
   ViewModels or services. Define strongly typed request/response DTOs or payload
-  models with `toJson`/`fromJson`, and keep them in the infrastructure/data
+  models with `toJson`/`fromJson`, and keep them in the data
   layer.
 - `Map<String, dynamic>` is acceptable only at serialization boundaries, such as
   generated `fromJson`/`toJson`, JSON converters, or tightly scoped decoding
