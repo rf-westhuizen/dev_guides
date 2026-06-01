@@ -139,7 +139,8 @@ Treat these as hard gates before asking for review:
 - For planning, teaching, or shared understanding, tell Claude Code to use the
   `shared-understanding` skill.
 - For grilling, stress-testing a plan, or documenting terms and decisions as
-  they crystallize, tell Claude Code to use the `grill-with-docs` skill.
+  they crystallize, read `D:\Github\dev_guides\skills\grill-with-docs\SKILL.md`
+  directly. (grill-with-docs is not installed as a live skill — read the file.)
 - For domain terminology, tell Claude Code to use the `ubiquitous-language`
   skill and update `D:\Github\dev_guides\UBIQUITOUS_LANGUAGE.md`.
 - For architecture or implementation work, have Claude Code read `SKILL.md`

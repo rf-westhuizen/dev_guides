@@ -95,6 +95,11 @@ decision-shaping question at a time, recommends an answer, updates `CONTEXT.md`
 when terms are resolved, and offers ADRs only for decisions that are hard to
 reverse, surprising without context, and the result of a real trade-off.
 
+**Not installed as a live skill — read the file.** grill-with-docs has no junction
+in `.claude/skills`, so it does not auto-activate and has no slash command. Invoke it
+by reading `D:\Github\dev_guides\skills\grill-with-docs\SKILL.md` directly (see the
+ready-made prompts in `PROMPTS.md`).
+
 ### `shared-understanding` - Planning, teaching, and explanations
 
 Use when you want collaborative planning, compact concept explanation, learning
@@ -149,8 +154,8 @@ Symlink the relevant skills into any project's `.claude/skills/`:
 # From your project root
 mklink /D ".claude\skills\dev-flutter" "D:\Github\dev_guides\skills\dev-flutter"
 mklink /D ".claude\skills\shared-understanding" "D:\Github\dev_guides\skills\shared-understanding"
-mklink /D ".claude\skills\grill-with-docs" "D:\Github\dev_guides\skills\grill-with-docs"
 mklink /D ".claude\skills\ubiquitous-language" "D:\Github\dev_guides\skills\ubiquitous-language"
+# grill-with-docs is intentionally NOT linked — read its SKILL.md file directly instead.
 ```
 
 ### With Claude.ai (Web Interface)
