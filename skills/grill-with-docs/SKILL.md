@@ -1,4 +1,4 @@
-﻿---
+---
 name: grill-with-docs
 description: Documentation-backed grilling workflow for stress-testing plans against the codebase, project context, and ADRs. Use when the user asks to grill, stress-test, challenge, clarify, sharpen terminology, document decisions, or prepare a plan before implementation.
 ---

@@ -50,11 +50,31 @@ New-Item -ItemType Junction -Path "D:\Github\.claude\skills\<name>" -Target "<so
 | `ubiquitous-language` | `D:\Github\dev_guides\skills\ubiquitous-language` | dev_guides |
 | `grill-with-docs` | `D:\Github\dev_guides\skills\grill-with-docs` | dev_guides |
 | `error-replication` | `D:\Github\dev_guides\skills\error-replication` | dev_guides |
+| `pre-pr` | `D:\Github\dev_guides\skills\pre-pr` | dev_guides |
 | `manage-azure-devops-stories` | `C:\ClaudePlugins\azure-devops-work-items\skills\manage-azure-devops-stories` | ClaudePlugins (Azure DevOps MCP plugin) |
 
-`scotch-flutter` exists in `dev_guides\skills\` but has **no** junction — it's
-intentionally not globally live; read it directly when working in the
-`scotch_software` monorepo (see `CLAUDE.md`/`CODEX.md`).
+## Project-level junction: scotch-flutter
+
+`scotch-flutter` is junctioned at the **project** level, not the personal one:
+
+| Junction | Target |
+|---|---|
+| `D:/Github/scotch_software/.claude/skills/scotch-flutter` | `D:/Github/dev_guides/skills/scotch-flutter` |
+
+Project skills load only in sessions started at or below that repository, so the
+monorepo standard is live inside `scotch_software` and absent everywhere else.
+This replaces the earlier approach of deliberately withholding a junction and
+reading the file by absolute path, which left the skill invisible to the Skill
+tool and dependent on `CLAUDE.md` prose to apply at all.
+
+Two consequences worth knowing:
+
+- `scotch_software/.gitignore` ignores `.claude/`, so this junction is
+  machine-local and is not shared with the team. Un-ignore `.claude/skills/`
+  if you want it committed.
+- Both `dev-flutter` (personal) and `scotch-flutter` (project) are now live in
+  monorepo sessions. `CLAUDE.md` states the preference for `scotch-flutter`
+  there.
 
 ## Separate concern: the Azure DevOps MCP server
 
