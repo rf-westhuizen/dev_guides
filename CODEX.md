@@ -1,5 +1,42 @@
 # CODEX.md - Global Instructions for Codex
 
+## Reply Marker (Always)
+
+Start the first message of every conversation, and the start of every reply,
+with the exact line:
+
+`oKAy, Lets GO!`
+
+This signals that these `dev_guides` instructions are loaded and being followed.
+Applies to both Claude Code and Codex.
+
+## Skill Routing (Auto-Engage)
+
+Engage the matching skill automatically when a request fits its trigger. This is
+trigger-based, not always-on: skip skill engagement for trivial chat or simple
+questions. When a skill engages, lead with its start marker so the active skill
+is visible.
+
+| When the request is about... | Engage skill | Start marker |
+|---|---|---|
+| Dart/Flutter code outside the monorepo | `dev-flutter` | `Lets dev build this...` |
+| Dart/Flutter code inside `scotch_software` | `scotch-flutter` | `Lets scotch build this...` |
+| Domain terms / glossary / `UBIQUITOUS_LANGUAGE.md` | `ubiquitous-language` | `Lets name this...` |
+| Planning, explaining, learning, shared understanding | `shared-understanding` | `Lets understand this...` |
+| Stress-testing or grilling a plan against docs/ADRs | `grill-with-docs` | `Lets grill this...` |
+
+In the `scotch_software` monorepo, prefer `scotch-flutter` over `dev-flutter`
+for code work. The `UserPromptSubmit` hook is Claude Code only; Codex relies on
+this section directly.
+
+Codex does not auto-discover skills the way Claude Code does (no
+`CLAUDE_CONFIG_DIR`/junction mechanism) — always read the relevant `SKILL.md`
+by absolute path. `grill-with-docs` and `manage-azure-devops-stories` (Azure
+DevOps work-item management, from the separate
+`C:/ClaudePlugins/azure-devops-work-items` plugin) exist alongside the other
+skills below. See `ENVIRONMENT.md` in this repo for the full picture of how
+Claude Code wires this up on this machine, for context if comparing notes.
+
 ## Purpose
 
 Use this repository as the source of truth for Flutter/Dart coding standards,
@@ -7,24 +44,24 @@ architecture patterns, scaffolding, and AI-assisted development workflows.
 
 The universal Flutter standards live in:
 
-- `D:\Github\dev_guides\skills\dev-flutter\SKILL.md`
+- `D:/Github/dev_guides/skills/dev-flutter/SKILL.md`
 
 Shared collaboration and learning behavior lives in:
 
-- `D:\Github\dev_guides\skills\shared-understanding\SKILL.md`
+- `D:/Github/dev_guides/skills/shared-understanding/SKILL.md`
 
 Shared documentation-backed grilling and planning behavior lives in:
 
-- `D:\Github\dev_guides\skills\grill-with-docs\SKILL.md`
+- `D:/Github/dev_guides/skills/grill-with-docs/SKILL.md`
 
 Shared domain terminology lives in:
 
-- `D:\Github\dev_guides\skills\ubiquitous-language\SKILL.md`
-- `D:\Github\dev_guides\UBIQUITOUS_LANGUAGE.md`
+- `D:/Github/dev_guides/skills/ubiquitous-language/SKILL.md`
+- `D:/Github/dev_guides/UBIQUITOUS_LANGUAGE.md`
 
 If working inside the `scotch_software` monorepo, also use:
 
-- `D:\Github\dev_guides\skills\scotch-flutter\SKILL.md`
+- `D:/Github/dev_guides/skills/scotch-flutter/SKILL.md`
 
 Scotch-Docs may be used only as comparison or background context. The
 operational instructions for Codex come from this `dev_guides` repository.
@@ -32,15 +69,15 @@ operational instructions for Codex come from this `dev_guides` repository.
 ## Before Writing Code
 
 1. Read the universal Flutter skill:
-   `D:\Github\dev_guides\skills\dev-flutter\SKILL.md`
+   `D:/Github/dev_guides/skills/dev-flutter/SKILL.md`
 2. For shared planning, explanation, learning, or terminology work, read:
-   `D:\Github\dev_guides\skills\shared-understanding\SKILL.md`
+   `D:/Github/dev_guides/skills/shared-understanding/SKILL.md`
 3. For grilling, stress-testing plans, or documentation-backed clarification, read:
-   `D:\Github\dev_guides\skills\grill-with-docs\SKILL.md`
+   `D:/Github/dev_guides/skills/grill-with-docs/SKILL.md`
 4. For domain terminology alignment or glossary updates, read:
-   `D:\Github\dev_guides\skills\ubiquitous-language\SKILL.md`
+   `D:/Github/dev_guides/skills/ubiquitous-language/SKILL.md`
 5. If the project is in the Scotch monorepo named `scotch_software`, also read:
-   `D:\Github\dev_guides\skills\scotch-flutter\SKILL.md`
+   `D:/Github/dev_guides/skills/scotch-flutter/SKILL.md`
 6. Search existing code before creating any new class, widget, value object,
    service, route, constant, helper, DTO, provider, or test utility. Reuse or
    extend existing patterns unless a new component is clearly needed.
@@ -139,10 +176,14 @@ Treat these as hard gates before asking for review:
 - For planning, teaching, or shared understanding, tell Codex to use the
   `shared-understanding` skill.
 - For grilling, stress-testing a plan, or documenting terms and decisions as
-  they crystallize, read `D:\Github\dev_guides\skills\grill-with-docs\SKILL.md`
-  directly. (grill-with-docs is not installed as a live skill — read the file.)
+  they crystallize, read `D:/Github/dev_guides/skills/grill-with-docs/SKILL.md`
+  directly.
+- For Azure DevOps work-item creation, updates, or re-parenting, read
+  `C:/ClaudePlugins/azure-devops-work-items/skills/manage-azure-devops-stories/SKILL.md`
+  directly (requires the MCP server in that plugin to be registered and its
+  PAT env vars set — see `ENVIRONMENT.md`).
 - For domain terminology, tell Codex to use the `ubiquitous-language` skill and
-  update `D:\Github\dev_guides\UBIQUITOUS_LANGUAGE.md`.
+  update `D:/Github/dev_guides/UBIQUITOUS_LANGUAGE.md`.
 - For architecture or implementation work, have Codex read `SKILL.md` first,
   then the relevant reference file.
 - For monorepo-specific work, add `scotch-flutter` on top of `dev-flutter`.
@@ -153,8 +194,8 @@ Treat these as hard gates before asking for review:
 
 Use prompts like:
 
-`Use D:\Github\dev_guides\CODEX.md and the dev-flutter skill as the guide for this Flutter project.`
+`Use D:/Github/dev_guides/CODEX.md and the dev-flutter skill as the guide for this Flutter project.`
 
 Or:
 
-`Follow D:\Github\dev_guides\skills\dev-flutter\SKILL.md for architecture and coding standards while making this change.`
+`Follow D:/Github/dev_guides/skills/dev-flutter/SKILL.md for architecture and coding standards while making this change.`

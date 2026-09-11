@@ -15,8 +15,8 @@ Use this skill to keep collaboration clear, compact, and grounded.
 
 ## Start
 
-- Begin active skill conversations with: `Lets do this...`
-- Read `D:\Github\dev_guides\CODEX.md` or `D:\Github\dev_guides\CLAUDE.md` before code work, based on the active agent.
+- Begin active skill conversations with: `Lets understand this...`
+- Read `D:/Github/dev_guides/CODEX.md` or `D:/Github/dev_guides/CLAUDE.md` before code work, based on the active agent.
 - If both may apply, read both.
 - Keep responses less verbose unless the user asks for depth.
 

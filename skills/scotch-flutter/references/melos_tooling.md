@@ -3,7 +3,7 @@
 ## Monorepo Root Structure
 
 ```
-D:\Github\scotch_software\
+D:/Github/scotch_software/
 ├── apps/
 │   ├── scotch_launcher/          # Main launcher app
 │   └── mipos_pay/                # MiPOS payment app
@@ -185,4 +185,27 @@ melos bootstrap
 melos run format -- --set-exit-if-changed
 melos run analyze
 melos run test:all
+```
+
+## Environment Reset & Clean Build
+
+Use this when dependency resolution is corrupted, pub cache is stale, or a
+clean-slate build is needed before release/debug testing.
+
+**Clear all caches** (from `scotch_software` root):
+
+```bash
+melos exec -- flutter clean       # clears build/ and .dart_tool/ for every package
+flutter clean                     # cleans the root repository build artifacts
+flutter pub cache clean           # removes all downloaded packages from the global pub cache
+flutter pub get                   # resolves root project dependencies only (mainly melos)
+flutter pub global activate melos # (re)installs the melos CLI globally
+melos bootstrap                   # resolves and links all project dependencies per pubspec.yaml
+```
+
+**Build & install** (from `scotch_launcher`, any APK):
+
+```bash
+flutter build apk --split-per-abi --no-tree-shake-icons  # builds the split APKs
+adb install <v7a>.apk                                    # installs the ARM v7a APK to the device
 ```

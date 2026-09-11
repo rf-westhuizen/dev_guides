@@ -11,9 +11,13 @@ description: >
 
 Use this skill to keep code, planning, and conversation aligned with the same domain model.
 
+## Start
+
+- Begin active skill conversations with: `Lets name this...`
+
 ## Source Of Truth
 
-- Maintain the central file at `D:\Github\dev_guides\UBIQUITOUS_LANGUAGE.md`.
+- Maintain the central file at `D:/Github/dev_guides/UBIQUITOUS_LANGUAGE.md`.
 - Use the active project name in the `Project` column.
 - Prefer terms already present in code, tests, docs, routes, database names, and UI labels.
 - Mark unclear meanings as `Needs confirmation`.

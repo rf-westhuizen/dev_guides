@@ -1,30 +1,56 @@
 # CLAUDE.md - Global Instructions for Claude Code
 
+## Reply Marker (Always)
+
+Start the first message of every conversation, and the start of every reply,
+with the exact line:
+
+`oKAy, Lets GO!`
+
+This signals that these `dev_guides` instructions are loaded and being followed.
+Applies to both Claude Code and Codex.
+
+## Skill Routing (Auto-Engage)
+
+Engage the matching skill automatically when a request fits its trigger. This is
+trigger-based, not always-on: skip skill engagement for trivial chat or simple
+questions. When a skill engages, lead with its start marker so the active skill
+is visible.
+
+| When the request is about... | Engage skill | Start marker |
+|---|---|---|
+| Dart/Flutter code outside the monorepo | `dev-flutter` | `Lets dev build this...` |
+| Dart/Flutter code inside `scotch_software` | `scotch-flutter` | `Lets scotch build this...` |
+
+**Note:** unlike the other rows above, `scotch-flutter` has no junction —
+global or project-local. It never appears in the `Skill` tool's discovery
+list, so it cannot be auto-engaged. Load it with `Read` on
+`D:/Github/dev_guides/skills/scotch-flutter/SKILL.md` directly whenever the
+table above says to use it. This is intentional (see `ENVIRONMENT.md`): a
+global junction would make it auto-trigger on Flutter projects outside
+`scotch_software` too.
+| Domain terms / glossary / `UBIQUITOUS_LANGUAGE.md` | `ubiquitous-language` | `Lets name this...` |
+| Planning, explaining, learning, shared understanding | `shared-understanding` | `Lets understand this...` |
+| Stress-testing or grilling a plan against docs/ADRs | `grill-with-docs` | `Lets grill this...` |
+| Error, exception, crash, stack trace, or logcat to debug | `error-replication` | `Lets replicate this...` |
+
+In the `scotch_software` monorepo, prefer `scotch-flutter` over `dev-flutter`
+for code work. This file is imported automatically into context via an
+`@D:/Github/dev_guides/CLAUDE.md` line in the root `D:/Github/CLAUDE.md`
+(Claude Code only) — no hook is needed to re-surface it. Codex has no
+equivalent import mechanism and relies on this section directly.
+
+`grill-with-docs` and `manage-azure-devops-stories` (Azure DevOps work-item
+management, from the separate `C:/ClaudePlugins/azure-devops-work-items`
+plugin) are also installed as live global skills. See `ENVIRONMENT.md` in this
+repo for how skill auto-discovery is wired up on this machine (`CLAUDE_CONFIG_DIR`
+override + junction registry) before adding or debugging any skill.
+
 ## Purpose
 
 Use this repository as the source of truth for Flutter/Dart coding standards,
-architecture patterns, scaffolding, and AI-assisted development workflows.
-
-The universal Flutter standards live in:
-
-- `D:\Github\dev_guides\skills\dev-flutter\SKILL.md`
-
-Shared collaboration and learning behavior lives in:
-
-- `D:\Github\dev_guides\skills\shared-understanding\SKILL.md`
-
-Shared documentation-backed grilling and planning behavior lives in:
-
-- `D:\Github\dev_guides\skills\grill-with-docs\SKILL.md`
-
-Shared domain terminology lives in:
-
-- `D:\Github\dev_guides\skills\ubiquitous-language\SKILL.md`
-- `D:\Github\dev_guides\UBIQUITOUS_LANGUAGE.md`
-
-If working inside the `scotch_software` monorepo, also use:
-
-- `D:\Github\dev_guides\skills\scotch-flutter\SKILL.md`
+architecture patterns, scaffolding, and AI-assisted development workflows. See
+"Before Writing Code" below for which skill file to read for each kind of work.
 
 Scotch-Docs may be used only as comparison or background context. The
 operational instructions for Claude Code come from this `dev_guides` repository.
@@ -32,67 +58,33 @@ operational instructions for Claude Code come from this `dev_guides` repository.
 ## Before Writing Code
 
 1. Read the universal Flutter skill:
-   `D:\Github\dev_guides\skills\dev-flutter\SKILL.md`
+   `D:/Github/dev_guides/skills/dev-flutter/SKILL.md`
 2. For shared planning, explanation, learning, or terminology work, read:
-   `D:\Github\dev_guides\skills\shared-understanding\SKILL.md`
+   `D:/Github/dev_guides/skills/shared-understanding/SKILL.md`
 3. For grilling, stress-testing plans, or documentation-backed clarification, read:
-   `D:\Github\dev_guides\skills\grill-with-docs\SKILL.md`
+   `D:/Github/dev_guides/skills/grill-with-docs/SKILL.md`
 4. For domain terminology alignment or glossary updates, read:
-   `D:\Github\dev_guides\skills\ubiquitous-language\SKILL.md`
+   `D:/Github/dev_guides/skills/ubiquitous-language/SKILL.md`
 5. If the project is in the Scotch monorepo named `scotch_software`, also read:
-   `D:\Github\dev_guides\skills\scotch-flutter\SKILL.md`
-6. Search existing code before creating any new class, widget, value object,
+   `D:/Github/dev_guides/skills/scotch-flutter/SKILL.md`
+6. When debugging an error, exception, crash, or logcat, read:
+   `D:/Github/dev_guides/skills/error-replication/SKILL.md`
+7. Search existing code before creating any new class, widget, value object,
    service, route, constant, helper, DTO, provider, or test utility. Reuse or
    extend existing patterns unless a new component is clearly needed.
-7. Open only the relevant reference document for the task at hand
+8. Open only the relevant reference document for the task at hand
    (`architecture.md`, `riverpod_patterns.md`, `drift_patterns.md`,
    `freezed_patterns.md`, `testing_standards.md`, and so on).
-8. Use templates from `templates/` when scaffolding new packages or features.
-
-## Flutter/Dart Standards
-
-All Flutter/Dart code must follow the `dev-flutter` standards:
-
-- MVVM + DDD with strict layer separation: data, domain, providers,
-  presentation
-- Riverpod codegen patterns only
-- Freezed for immutable models and unions
-- Drift modular code generation
-- Dart 3 pattern matching with `switch` expressions
-- Strongly typed DTOs using Freezed/json serialization
-- Scan-before-create discipline for reusable objects, widgets, constants, and
-  helpers
-
-## Key Architecture Rules
-
-1. Dependencies point inward toward the Domain layer.
-2. Domain is pure Dart with no Flutter imports and no data, provider, or
-   presentation imports.
-3. Domain holds business entities, value objects, failures, state classes, and
-   interface contracts.
-4. Repositories return domain types, not DTOs.
-5. ViewModels orchestrate UI state and call domain contracts, not
-   raw services or HTTP clients.
-6. Use `@riverpod` codegen instead of legacy Riverpod patterns.
-7. Use `@freezed`: `abstract class` for single-constructor models and
-   `sealed class` for unions.
-8. Use Dart 3 `switch` expressions instead of Freezed `when()` or `map()`.
-9. Use Drift modular codegen with `.drift.dart`.
-10. Check `state.isLoading` before `when()` in retry-sensitive UIs.
-11. Disable Riverpod auto-retry when the UI provides manual retry.
-12. Use snake_case for files and lowerCamelCase for constants.
-13. Keep business logic out of widgets and external access out of ViewModels.
+9. Use templates from `templates/` when scaffolding new packages or features.
 
 ## Type Safety Rules
 
+Architecture, layering, Riverpod/Freezed/Drift codegen rules, and the
+Map<String, dynamic> DTO-boundary rule are owned by `dev-flutter/SKILL.md`
+(and `scotch-flutter/SKILL.md` in the monorepo) — read those, not a copy here.
+The rules below are the parts not already stated there:
+
 - Do not use `dynamic` for known shapes.
-- Do not pass known API contracts around as inline `Map<String, dynamic>` from
-  ViewModels or services. Define strongly typed request/response DTOs or payload
-  models with `toJson`/`fromJson`, and keep them in the data
-  layer.
-- `Map<String, dynamic>` is acceptable only at serialization boundaries, such as
-  generated `fromJson`/`toJson`, JSON converters, or tightly scoped decoding
-  adapters.
 - Use value objects for meaningful primitives when logic depends on them, such
   as `Money`, `Sku`, transaction IDs, route/action names, receipt identifiers,
   and device/register identifiers.
@@ -132,29 +124,16 @@ Treat these as hard gates before asking for review:
 6. Add or update tests for the actual behavior, not only fixed fake state.
 7. Database tests must use memory/temp databases and clean up after themselves.
 
-## How To Use This Repo With Claude Code
+## Further Reading
 
-- When starting a new Flutter project, tell Claude Code to use the
-  `dev-flutter` skill and this repository as the project guide.
-- For planning, teaching, or shared understanding, tell Claude Code to use the
-  `shared-understanding` skill.
-- For grilling, stress-testing a plan, or documenting terms and decisions as
-  they crystallize, read `D:\Github\dev_guides\skills\grill-with-docs\SKILL.md`
-  directly. (grill-with-docs is not installed as a live skill — read the file.)
-- For domain terminology, tell Claude Code to use the `ubiquitous-language`
-  skill and update `D:\Github\dev_guides\UBIQUITOUS_LANGUAGE.md`.
-- For architecture or implementation work, have Claude Code read `SKILL.md`
-  first, then the relevant reference file.
-- For monorepo-specific work, add `scotch-flutter` on top of `dev-flutter`.
-- For scaffolding, copy from `templates/new_package/` or other templates as a
-  starting point.
-
-## Suggested Prompt Pattern
-
-Use prompts like:
-
-`Use D:\Github\dev_guides\CLAUDE.md and the dev-flutter skill as the guide for this Flutter project.`
-
-Or:
-
-`Follow D:\Github\dev_guides\skills\dev-flutter\SKILL.md for architecture and coding standards while making this change.`
+- Azure DevOps work-item creation, updates, or re-parenting: the
+  `manage-azure-devops-stories` skill (requires the MCP server in
+  `C:/ClaudePlugins/azure-devops-work-items` to be registered and its PAT env
+  vars set — see `ENVIRONMENT.md`).
+- Scaffolding new packages/features: `templates/new_package/` or other
+  templates in `templates/`.
+- Ready-made prompts (new feature, fix a bug, review code, review like
+  Heinrich, prepare a PR, grill with docs, architecture question):
+  `D:/Github/dev_guides/PROMPTS.md`.
+- Supplementary background (not gates): `D:/Github/dev_guides/docs/oop_solid_dart.md`
+  and `D:/Github/dev_guides/docs/riverpod_3_cheat_sheet.md`.

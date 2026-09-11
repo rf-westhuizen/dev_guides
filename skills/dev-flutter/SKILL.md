@@ -19,6 +19,10 @@ Universal architecture standards and patterns for Flutter/Dart development.
 **Read this file first**, then consult reference documents in `references/`
 for deep-dive guidance.
 
+## Start
+
+- Begin active skill conversations with: `Lets dev build this...`
+
 ## Reference Documents (read as needed)
 
 | File | When to read |
@@ -209,6 +213,51 @@ BasketRepository basketRepository(Ref ref) {
   );
 }
 ```
+
+## Hooks Pattern for Cross-Module Decoupling
+
+Use this when a lower layer (e.g. `core/database`) needs a value that only a
+higher, platform- or feature-specific layer can provide (e.g. device serial,
+app version), and importing that layer directly would invert the dependency
+rule or create a circular import.
+
+Instead of the lower layer reaching outward, it exposes a static registration
+point that only knows about a plain function type — no import of the
+higher-level module required:
+
+```dart
+// core/database/connector_hooks.dart
+class ConnectorHooks {
+  static String Function()? _serialHook;
+
+  static void register({required String Function() serialFunction}) {
+    _serialHook = serialFunction;
+  }
+
+  static String get serial {
+    if (_serialHook == null) throw StateError('No serial function registered!');
+    return _serialHook!.call();
+  }
+}
+```
+
+The app wires the real implementation in at startup, where both sides are
+visible:
+
+```dart
+void main() {
+  ConnectorHooks.register(serialFunction: () => DeviceInfo.instance.serial);
+  runApp(const MyApp());
+}
+```
+
+Anywhere inside `core/database`, `ConnectorHooks.serial` just works, without
+ever importing the device-info module. This keeps dependencies pointing the
+right way, makes the lower layer trivially testable (register a fake closure
+in tests, no platform module involved), and avoids a circular import. It's a
+runtime contract, not a compile-time one — if `register()` never runs before
+something reads the getter, it throws at runtime, so register hooks early
+(top of `main()`) before any code path that depends on them.
 
 ## New Feature Checklist
 

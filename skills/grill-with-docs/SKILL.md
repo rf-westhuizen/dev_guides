@@ -9,7 +9,7 @@ Use this skill to build shared understanding by challenging a plan against the c
 
 ## Start
 
-- Begin active skill conversations with: `Lets do this...`
+- Begin active skill conversations with: `Lets grill this...`
 - Read the relevant code, tests, docs, errors, `CONTEXT.md`, `CONTEXT-MAP.md`, and ADRs before asking questions.
 - Ask one decision-shaping question at a time.
 - Recommend an answer for each question, with the trade-off made explicit.

@@ -19,6 +19,10 @@ This skill enforces the Scotch Software monorepo coding standards, architecture 
 and tooling conventions. **Read this file first**, then consult reference documents in
 `references/` for deep-dive guidance on specific topics.
 
+## Start
+
+- Begin active skill conversations with: `Lets scotch build this...`
+
 ## Reference Documents (read as needed)
 
 | File | When to read |
@@ -28,7 +32,7 @@ and tooling conventions. **Read this file first**, then consult reference docume
 | `references/drift_patterns.md` | Creating tables, DAOs, migrations, or database code |
 | `references/freezed_patterns.md` | Defining models, DTOs, union types, or value objects |
 | `references/naming_conventions.md` | Naming files, classes, packages, or any identifier |
-| `references/melos_tooling.md` | Running codegen, CI scripts, or managing packages |
+| `references/melos_tooling.md` | Running codegen, CI scripts, managing packages, or resetting the environment/clean builds |
 | `references/pigeon_platform.md` | Creating Flutter plugins with native Android/iOS code |
 | `references/testing_standards.md` | Writing unit, widget, or integration tests |
 | `references/external_sources.md` | Links to official docs for Flutter, Dart, Riverpod, Drift |
