@@ -22,7 +22,8 @@ is visible.
 | Dart/Flutter code outside the monorepo | `dev-flutter` | `Lets dev build this...` |
 | Dart/Flutter code inside `scotch_software` | `scotch-flutter` | `Lets scotch build this...` |
 | Domain terms / glossary / `UBIQUITOUS_LANGUAGE.md` | `ubiquitous-language` | `Lets name this...` |
-| Planning, explaining, learning, shared understanding | `shared-understanding` | `Lets understand this...` |
+| Planning, explaining this codebase, shared understanding | `shared-understanding` | `Lets understand this...` |
+| Learning a concept or topic for its own sake (teach, ELI5, quiz me) | `learn` | `Lets learn this...` |
 | Stress-testing or grilling a plan against docs/ADRs | `grill-with-docs` | `Lets grill this...` |
 | Error, exception, crash, stack trace, or logcat to debug | `error-replication` | `Lets replicate this...` |
 | Preparing a commit or PR | `pre-pr` | `Lets prep this...` |

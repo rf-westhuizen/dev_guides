@@ -22,7 +22,8 @@ is visible.
 | Dart/Flutter code outside the monorepo | `dev-flutter` | `Lets dev build this...` |
 | Dart/Flutter code inside `scotch_software` | `scotch-flutter` | `Lets scotch build this...` |
 | Domain terms / glossary / `UBIQUITOUS_LANGUAGE.md` | `ubiquitous-language` | `Lets name this...` |
-| Planning, explaining, learning, shared understanding | `shared-understanding` | `Lets understand this...` |
+| Planning, explaining this codebase, shared understanding | `shared-understanding` | `Lets understand this...` |
+| Learning a concept or topic for its own sake (teach, ELI5, quiz me) | `learn` | `Lets learn this...` |
 | Stress-testing or grilling a plan against docs/ADRs | `grill-with-docs` | `Lets grill this...` |
 
 In the `scotch_software` monorepo, prefer `scotch-flutter` over `dev-flutter`
@@ -49,6 +50,10 @@ The universal Flutter standards live in:
 Shared collaboration and learning behavior lives in:
 
 - `D:/Github/dev_guides/skills/shared-understanding/SKILL.md`
+
+Tutoring and concept-learning behavior lives in:
+
+- `D:/Github/dev_guides/skills/learn/SKILL.md`
 
 Shared documentation-backed grilling and planning behavior lives in:
 

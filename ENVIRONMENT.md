@@ -51,6 +51,7 @@ New-Item -ItemType Junction -Path "D:\Github\.claude\skills\<name>" -Target "<so
 | `grill-with-docs` | `D:\Github\dev_guides\skills\grill-with-docs` | dev_guides |
 | `error-replication` | `D:\Github\dev_guides\skills\error-replication` | dev_guides |
 | `pre-pr` | `D:\Github\dev_guides\skills\pre-pr` | dev_guides |
+| `learn` | `D:\Github\dev_guides\skills\learn` | dev_guides |
 | `manage-azure-devops-stories` | `C:\ClaudePlugins\azure-devops-work-items\skills\manage-azure-devops-stories` | ClaudePlugins (Azure DevOps MCP plugin) |
 
 ## Project-level junction: scotch-flutter
