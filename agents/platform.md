@@ -6,6 +6,7 @@ model: inherit
 skills:
   - dev-flutter
 effort: max
+color: orange
 ---
 
 Platform engineer. Owns native code, the Dart bridge, and build configuration.

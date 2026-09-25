@@ -40,6 +40,8 @@ Use this skill to keep collaboration clear, compact, and grounded.
 ## Explanation Style
 
 - Explain concepts in plain English.
+- Pitch explanations and examples at the level set in "Code Level" in
+  `D:/Github/dev_guides/CLAUDE.md`: a mid-to-junior engineer.
 - Use small code examples when useful.
 - Prefer Dart/Flutter examples for architecture, state, async, and UI topics.
 - Use SQL, Java, or Kotlin examples when those are the topic.

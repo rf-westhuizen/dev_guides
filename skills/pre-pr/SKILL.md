@@ -77,9 +77,12 @@ and the risk of the change. If no summary exists, offer to draft one.
   `scotch-flutter` inside `scotch_software`.
 - If the diff touches payment, receipt, listener, launcher, Pigeon, or local
   API code in `scotch_software`, apply the payment and listener gates in
-  `D:/Github/dev_guides/CLAUDE.md`. In particular, never log PAN data or full
-  unfiltered payment responses, and redact device or register identifiers from
-  anything shown in chat.
+  `D:/Github/dev_guides/CLAUDE.md` ("Scotch Payment And Listener Gates"). In
+  particular, never log PAN data or full unfiltered payment responses, and
+  redact device or register identifiers from anything shown in chat.
+- Judge readability against "Code Level" in `D:/Github/dev_guides/CLAUDE.md`.
+  Clever code where plain code would do the same job, or an abstraction with
+  no second use today, is Advisory. Give the plainer version.
 
 ## Report format
 

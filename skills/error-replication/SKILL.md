@@ -46,7 +46,8 @@ again after the fix before calling anything solved.
    it happened).
 4. **Fix.** Implement the smallest correct fix. Keep it inside the
    architecture/layering and type-safety rules from `dev-flutter` /
-   `scotch-flutter`. Do not fold in unrelated cleanup.
+   `scotch-flutter`. Do not fold in unrelated cleanup. Keep the fix at the
+   level set in "Code Level" in `D:/Github/dev_guides/CLAUDE.md`.
 5. **Verify.** Re-run the exact reproduction from step 2 against the fixed
    code. It must now pass. This step is not optional — a fix without the
    reproduction re-run is not considered done.
@@ -67,7 +68,8 @@ When a failure can't be reproduced locally:
 ## Payment / Listener Sensitive Debugging
 
 When the error touches payment, receipt, listener, or launcher code in
-`scotch_software`, the gates in `D:/Github/dev_guides/CLAUDE.md` still apply
+`scotch_software`, the "Scotch Payment And Listener Gates" in
+`D:/Github/dev_guides/CLAUDE.md` still apply
 during debugging, not just the final fix:
 
 - Never log or print PAN data or full unfiltered payment responses, even in

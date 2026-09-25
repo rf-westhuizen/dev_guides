@@ -21,7 +21,7 @@ is visible.
 |---|---|---|
 | Dart/Flutter code outside the monorepo | `dev-flutter` | `Lets dev build this...` |
 | Dart/Flutter code inside `scotch_software` | `scotch-flutter` | `Lets scotch build this...` |
-| Domain terms / glossary / `UBIQUITOUS_LANGUAGE.md` | `ubiquitous-language` | `Lets name this...` |
+| Domain terms / glossary / `UBIQUITOUS_LANGUAGE.md` / "UL" or "ul" | `ubiquitous-language` | `Lets name this...` |
 | Planning, explaining this codebase, shared understanding | `shared-understanding` | `Lets understand this...` |
 | Learning a concept or topic for its own sake (teach, ELI5, quiz me) | `learn` | `Lets learn this...` |
 | Stress-testing or grilling a plan against docs/ADRs | `grill-with-docs` | `Lets grill this...` |
@@ -90,6 +90,38 @@ operational instructions for Codex come from this `dev_guides` repository.
    (`architecture.md`, `riverpod_patterns.md`, `drift_patterns.md`,
    `freezed_patterns.md`, `testing_standards.md`, and so on).
 8. Use templates from `templates/` when scaffolding new packages or features.
+
+## Code Level (Always)
+
+The reader of every code example, refactor and fix is a mid-to-junior
+engineer. They must be able to read, maintain and explain the code without
+help. Senior quality means the simplest correct code, not the most
+sophisticated.
+
+- **Keep what the standards require.** Layers, domain contracts, repository
+  interfaces, Freezed, Riverpod, value objects where logic depends on them, and
+  the rules in `dev-flutter`/`scotch-flutter` are not optional.
+- **Add nothing beyond that without a real use today.** No extra interface,
+  generic, base class, wrapper, factory, config option or parameter for a
+  hypothetical future case. Two concrete uses justify an abstraction; one
+  expected use does not.
+- **Plain beats clever.** Prefer explicit `if`/`switch`, named intermediate
+  variables and short methods over chained one-liners, nested ternaries and
+  dense collection pipelines. Do not introduce advanced language features
+  (extension types, complex generics, mixins, custom operators) the codebase
+  does not already use.
+- **Refactor small.** Change only what was asked, keep existing names and
+  structure where they work, and show before and after for any non-trivial
+  change.
+- **Explain in plain English.** After code, say briefly what it does and why it
+  has this shape. Give a concept the reader may not know one or two sentences.
+  Name a SOLID principle or pattern only when the code actually uses it; never
+  add a pattern so there is one to name.
+- **Offer the bigger design, do not ship it.** If a more advanced solution is
+  genuinely better, deliver the simple version and add: "A bigger version would
+  add X; it's worth it only if Y." The user decides.
+- **"Too complex" means simplify.** When the user says code is too complex or
+  hard to follow, rewrite it simpler instead of defending it.
 
 ## Flutter/Dart Standards
 
@@ -194,6 +226,11 @@ Treat these as hard gates before asking for review:
 - For monorepo-specific work, add `scotch-flutter` on top of `dev-flutter`.
 - For scaffolding, copy from `templates/new_package/` or other templates as a
   starting point.
+- `D:/Github/dev_guides/skills/agent-flow/SKILL.md` and
+  `D:/Github/dev_guides/skills/review-team/SKILL.md` drive Claude Code
+  subagents and cannot run as-is in Codex. Codex can still follow
+  `agent-flow`'s step order and two checkpoints as a checklist, doing each
+  step itself.
 
 ## Suggested Prompt Pattern
 

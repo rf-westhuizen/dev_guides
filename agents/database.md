@@ -33,6 +33,13 @@ Before writing one, read the existing migration chain and the current schema
 version so your step follows the last one rather than colliding with it. State
 the from-version and to-version explicitly.
 
+You own the migration test. It opens a database at the from-version with
+representative rows, runs the migration, and asserts what those rows look like
+at the to-version. That is the one-line before/after statement above, made
+executable. Follow
+`D:/Github/dev_guides/skills/dev-flutter/references/testing_standards.md` and
+any existing migration tests in the package.
+
 ## Report
 
 ```text
@@ -44,6 +51,9 @@ the from-version and to-version explicitly.
 
 ## Files
 - <path> - <what changed>
+
+## Tests
+- <test file> - <what it asserts about existing rows>, or "none - <why>"
 
 ## Regeneration
 <the codegen command needed, or "none">

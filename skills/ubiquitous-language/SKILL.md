@@ -4,7 +4,8 @@ description: >
   Domain terminology extraction and glossary maintenance skill. Use when the
   user asks to create, update, scan, explain, or align a ubiquitous language,
   domain language, terminology glossary, DDD vocabulary, shared code terms, or
-  UBIQUITOUS_LANGUAGE.md file for a codebase.
+  UBIQUITOUS_LANGUAGE.md file for a codebase. "UL" or "ul" always means
+  ubiquitous language (e.g. "add this to the ul", "check the UL").
 ---
 
 # Ubiquitous Language

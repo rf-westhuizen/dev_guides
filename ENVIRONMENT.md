@@ -18,6 +18,16 @@ launched in. That is why `dev-flutter`, `shared-understanding`, etc. appear
 in every session's skill list unprefixed, without needing a project-local
 `.claude/skills` folder.
 
+## User-level CLAUDE.md
+
+`D:\Github\.claude\CLAUDE.md` contains only `@D:/Github/dev_guides/CLAUDE.md`.
+Because it sits in the config directory, it loads in every session on this
+machine, including sessions started outside `D:\Github`. Skills are global,
+so without this they would run in such sessions without the reply marker,
+skill routing or Code Level rules. `D:\Github\CLAUDE.md` imports the same
+file for sessions under `D:\Github`. Edit `dev_guides/CLAUDE.md`, never
+either importer.
+
 ## Skills are NTFS junctions, not copies
 
 Each entry under `D:\Github\.claude\skills\` is an NTFS directory junction
@@ -52,7 +62,38 @@ New-Item -ItemType Junction -Path "D:\Github\.claude\skills\<name>" -Target "<so
 | `error-replication` | `D:\Github\dev_guides\skills\error-replication` | dev_guides |
 | `pre-pr` | `D:\Github\dev_guides\skills\pre-pr` | dev_guides |
 | `learn` | `D:\Github\dev_guides\skills\learn` | dev_guides |
+| `review-team` | `D:\Github\dev_guides\skills\review-team` | dev_guides |
+| `agent-flow` | `D:\Github\dev_guides\skills\agent-flow` | dev_guides |
 | `manage-azure-devops-stories` | `C:\ClaudePlugins\azure-devops-work-items\skills\manage-azure-devops-stories` | ClaudePlugins (Azure DevOps MCP plugin) |
+
+## Subagents: one junction for the whole folder
+
+Subagent definitions are junctioned as a folder, not one per agent:
+
+| Junction | Target |
+|---|---|
+| `D:\Github\.claude\agents` | `D:\Github\dev_guides\agents` |
+
+Every `agents/*.md` in this repo is therefore a live global subagent. A new
+file there is picked up without adding a junction; a file you don't want
+loaded must not live in that folder.
+
+### Read-only guard hook
+
+`reviewer`, `security` and `tester` have Bash but must not change the project.
+Their frontmatter declares a `PreToolUse` hook on Bash that runs
+`D:/Github/dev_guides/scripts/readonly-bash-guard.ps1 -Mode <git-read|test>`.
+It allowlists read-only git, plain read commands, and (in `test` mode)
+`flutter`/`dart` `test`/`analyze` and the named `melos` test/analyze scripts.
+It blocks everything else, plus redirection to files, command substitution,
+and flags that write files or run programs, such as `--output`,
+`--update-goldens`, `--coverage` and `git grep -O`. Blocking exits with code
+2, and the agent sees the reason. Edit the allowlist in the script, not in the
+agents.
+
+Frontmatter hooks apply when the agent runs as a subagent. `review-team`
+teammates don't get preloaded skills and may not get hooks either, so its spawn
+prompts keep the "change nothing" instruction as a backstop.
 
 ## Project-level junction: scotch-flutter
 

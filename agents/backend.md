@@ -26,6 +26,13 @@ Work behind the domain contracts. The rules live with you; the screens do not.
   instead.
 - Schema, migrations and DAO internals belong to `database`. You call a DAO;
   you do not redesign it. If your work needs a schema change, say so and stop.
+- You own the tests for the behaviour you change. Add or update them, success
+  and failure path, following
+  `D:/Github/dev_guides/skills/dev-flutter/references/testing_standards.md`.
+  If you add no test, say why.
+- When you are given abuse cases from `security`, write them as ordinary unit
+  tests: feed the bad input, assert a typed failure or a safe result, and for
+  logging cases assert the output does not contain the sensitive value.
 
 ## Standard
 
@@ -43,6 +50,9 @@ package split and dependency hierarchy constrain where implementations may live.
 
 ## Contracts touched
 - <interface> - <added | changed | unchanged>
+
+## Tests
+- <test file> - <behaviour it guards>, or "none - <why>"
 
 ## Needed from another owner
 - <schema change, or presentation work, if any>

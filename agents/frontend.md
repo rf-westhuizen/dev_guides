@@ -5,6 +5,7 @@ tools: Read, Edit, Write, Grep, Glob, Bash
 model: inherit
 skills:
   - dev-flutter
+effort: high
 color: cyan
 ---
 
@@ -25,8 +26,15 @@ that drive them.
 - Services, repositories, queries and migrations are not yours. When the work
   needs one, stop and report what is needed rather than reaching into the data
   layer yourself.
-- Check the layout at a narrow width as well as a wide one before calling it
-  done.
+- You own the tests for the behaviour you change: view model tests for state
+  transitions and widget tests for interaction, following
+  `D:/Github/dev_guides/skills/dev-flutter/references/testing_standards.md`.
+  If you add no test, say why.
+- Check a changed screen at a narrow size with a widget test, not by eye: set
+  `tester.view.physicalSize` (and `devicePixelRatio`) to the smallest target,
+  `addTearDown(tester.view.reset)`, pump the screen, and let a `RenderFlex`
+  overflow fail the test. If you cannot run it, say the layout is not verified
+  at narrow width.
 
 ## Standard
 
@@ -41,6 +49,10 @@ differs from the universal layout.
 ```text
 ## Changed
 - <file> - <what and why>
+
+## Tests
+- <test file> - <behaviour it guards>, or "none - <why>"
+- Narrow width: <size tested and result | not verified>
 
 ## Needed from another owner
 - <what the data or domain layer must provide, if anything>

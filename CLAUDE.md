@@ -21,7 +21,7 @@ is visible.
 |---|---|---|
 | Dart/Flutter code outside the monorepo | `dev-flutter` | `Lets dev build this...` |
 | Dart/Flutter code inside `scotch_software` | `scotch-flutter` | `Lets scotch build this...` |
-| Domain terms / glossary / `UBIQUITOUS_LANGUAGE.md` | `ubiquitous-language` | `Lets name this...` |
+| Domain terms / glossary / `UBIQUITOUS_LANGUAGE.md` / "UL" or "ul" | `ubiquitous-language` | `Lets name this...` |
 | Planning, explaining this codebase, shared understanding | `shared-understanding` | `Lets understand this...` |
 | Learning a concept or topic for its own sake (teach, ELI5, quiz me) | `learn` | `Lets learn this...` |
 | Stress-testing or grilling a plan against docs/ADRs | `grill-with-docs` | `Lets grill this...` |
@@ -57,6 +57,38 @@ operational instructions for Claude Code come from this `dev_guides` repository.
    `freezed_patterns.md`, `testing_standards.md`, and so on).
 3. Use templates from `templates/` when scaffolding new packages or features.
 
+## Code Level (Always)
+
+The reader of every code example, refactor and fix is a mid-to-junior
+engineer. They must be able to read, maintain and explain the code without
+help. Senior quality means the simplest correct code, not the most
+sophisticated.
+
+- **Keep what the standards require.** Layers, domain contracts, repository
+  interfaces, Freezed, Riverpod, value objects where logic depends on them, and
+  the rules in `dev-flutter`/`scotch-flutter` are not optional.
+- **Add nothing beyond that without a real use today.** No extra interface,
+  generic, base class, wrapper, factory, config option or parameter for a
+  hypothetical future case. Two concrete uses justify an abstraction; one
+  expected use does not.
+- **Plain beats clever.** Prefer explicit `if`/`switch`, named intermediate
+  variables and short methods over chained one-liners, nested ternaries and
+  dense collection pipelines. Do not introduce advanced language features
+  (extension types, complex generics, mixins, custom operators) the codebase
+  does not already use.
+- **Refactor small.** Change only what was asked, keep existing names and
+  structure where they work, and show before and after for any non-trivial
+  change.
+- **Explain in plain English.** After code, say briefly what it does and why it
+  has this shape. Give a concept the reader may not know one or two sentences.
+  Name a SOLID principle or pattern only when the code actually uses it; never
+  add a pattern so there is one to name.
+- **Offer the bigger design, do not ship it.** If a more advanced solution is
+  genuinely better, deliver the simple version and add: "A bigger version would
+  add X; it's worth it only if Y." The user decides.
+- **"Too complex" means simplify.** When the user says code is too complex or
+  hard to follow, rewrite it simpler instead of defending it.
+
 ## Type Safety Rules
 
 Architecture, layering, Riverpod/Freezed/Drift codegen rules, and the
@@ -71,7 +103,32 @@ The rules below are the parts not already stated there:
 - Do not let DTOs, listener response DTOs, database rows, or API-specific types
   leak into domain interfaces.
 
+## Scotch Payment And Listener Gates
+
+For `scotch_software`, payment, receipt, listener, launcher, Pigeon/platform,
+or local API work:
+
+- Never log PAN data or full unfiltered payment responses.
+- Never hardcode secrets, subnets, local file paths, credentials, production
+  seed users, or payment-device assumptions.
+- Risky flags such as `isReprint` must be explicit and required when omitting
+  them could change transaction, receipt, or audit semantics.
+- Listener/admin endpoints must document authentication behavior, ownership
+  boundaries, and why unauthenticated local access is acceptable if it exists.
+- Prefer Pigeon or an established platform-channel pattern over growing one
+  new bridge method per event.
+- Keep payment flow, receipt printing, reprint, reversal, void, retry, sync, and
+  reconciliation concerns split into focused services/use cases/notifiers.
+
+These gates apply while writing and debugging, not only at PR time. The same
+section exists in `CODEX.md`; change both together.
+
 ## Further Reading
+
+- Manual-only skills (started by the user, never auto-engaged):
+  `/agent-flow <what to build>` runs a feature through the subagents in order
+  with two approval checkpoints; `/review-team <target>` runs a three-lens
+  parallel review.
 
 - Azure DevOps work-item creation, updates, or re-parenting: the
   `manage-azure-devops-stories` skill (requires the MCP server in

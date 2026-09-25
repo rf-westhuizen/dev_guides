@@ -23,6 +23,10 @@ to whoever owns that area.
   would decide it.
 - Say which files would change, and which layer each change belongs to.
 - Do not add features, refactor broadly, or rename things in passing.
+- Choose the smallest structure the standard allows. Follow the "Code Level"
+  section of `D:/Github/dev_guides/CLAUDE.md`: no interface, layer, use case or
+  abstraction beyond what the standard requires, unless two concrete uses
+  exist today.
 - You cannot edit files. Your output is a plan someone else executes.
 
 ## Standard

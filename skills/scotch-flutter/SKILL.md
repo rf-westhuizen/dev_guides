@@ -203,6 +203,10 @@ my_package/
 
 ## Code Generation Rules
 
+Keep code at the level set in "Code Level" in `D:/Github/dev_guides/CLAUDE.md`:
+the patterns below are required, and nothing beyond them is added without a
+real use today.
+
 ### ALWAYS use these patterns:
 
 **Riverpod providers** — Use `@riverpod` annotation with `riverpod_generator`:
