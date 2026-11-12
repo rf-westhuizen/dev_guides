@@ -50,7 +50,12 @@ again after the fix before calling anything solved.
    level set in "Code Level" in `D:/Github/dev_guides/CLAUDE.md`.
 5. **Verify.** Re-run the exact reproduction from step 2 against the fixed
    code. It must now pass. This step is not optional — a fix without the
-   reproduction re-run is not considered done.
+   reproduction re-run is not considered done. The reproduction must fail
+   before the fix and pass after it. If it passes both before and after (for
+   example, it still only asserts the original exception), it proves nothing,
+   so change it to assert the fixed behaviour. A successful build is not a
+   reproduction; if none was possible, use the Fallback path and say the fix
+   is unverified.
 6. **Report.** State cause, fix, and what the reproduction now proves, in a
    few sentences. If the repro was a scratch script rather than a checked-in
    test, note that and suggest promoting it if it's worth keeping.

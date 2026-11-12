@@ -174,6 +174,8 @@ class Users extends Table {
 - NEVER use `when()`/`map()` on Freezed unions; use Dart 3 `switch`
 - NEVER use `ref.watch()` inside callbacks; use `ref.read()`
 - NEVER turn `core/` into feature-specific storage for repositories, screens, or DI
+- NEVER import from `features/` inside `core/`; code that needs a feature's
+  service or provider belongs in that feature
 
 ## Error Handling Pattern
 
@@ -271,3 +273,9 @@ something reads the getter, it throws at runtime, so register hooks early
 4. **Presentation** - Build ViewModel, screens, and widgets
 5. **Tests** - Mirror the feature structure in `test/features/...`
 6. **Run codegen** - `dart run build_runner build -d`
+
+This applies to every change in behaviour, not only new features: add or
+update a test that would fail without the change. Re-running the existing
+suite or `flutter analyze` is not that test. If the test count did not go up
+and no test changed, nothing checks the new behaviour. If you add no test (a
+purely visual tweak, a manifest-only change), say so and why in your reply.

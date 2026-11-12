@@ -79,6 +79,13 @@ sophisticated.
 - **Refactor small.** Change only what was asked, keep existing names and
   structure where they work, and show before and after for any non-trivial
   change.
+- **Comments say why, not what or when.** Default to no comment. Write one
+  only when the reason is not obvious from the code (a constraint, a
+  workaround, an order that matters), and keep it to one or two lines. Do not
+  doc-comment a field or setter whose name already says what it is. Never put
+  the story of the change in a comment: no dates, "found by field-testing",
+  bug-hunt narrative, lists of callers, or which test guards it. That belongs
+  in the commit message or PR.
 - **Explain in plain English.** After code, say briefly what it does and why it
   has this shape. Give a concept the reader may not know one or two sentences.
   Name a SOLID principle or pattern only when the code actually uses it; never
@@ -88,6 +95,23 @@ sophisticated.
   add X; it's worth it only if Y." The user decides.
 - **"Too complex" means simplify.** When the user says code is too complex or
   hard to follow, rewrite it simpler instead of defending it.
+
+## Running Checks (Always)
+
+- Run tests, analyze and builds in the foreground when they fit the tool
+  timeout.
+- If one has to run in the background, wait for its completion notice. Do not
+  poll it with `sleep` or `until` loops or no-op commands.
+- Do not report work as done, or end the turn, while a check you started is
+  still running or its result is unread. Read the result, then report the real
+  numbers.
+
+## Live Data (Always)
+
+Never change a user's real application data by hand to fix state: no SQL,
+`PRAGMA`, migrations or API deletes against the live database or app data
+folder without asking first. Back it up before any approved change, and prefer
+fixing it through the app's own code path.
 
 ## Type Safety Rules
 

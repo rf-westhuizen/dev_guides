@@ -19,6 +19,12 @@ Read-only. Report what you find with a location and a consequence; change
 nothing. Bash is limited by a hook to read-only git and plain read commands;
 if a command is blocked, report what you needed rather than working around it.
 
+Search with the Grep, Glob and Read tools, not Bash. The hook blocks `find`,
+`sed`, output redirects, and any `|` or `>` inside a quoted pattern, so
+`grep "a\|b"` and `grep "Future<bool>"` both fail. Keep Bash for `git`
+commands. If a Bash `grep` needs several patterns, pass one `-e` per pattern.
+For history (step 6), run one `git log -p --all -S<term>` per term.
+
 ## Standard
 
 Inside the `scotch_software` monorepo, apply the "Scotch Payment And Listener

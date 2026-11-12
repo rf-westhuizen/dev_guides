@@ -21,6 +21,11 @@ You read, you judge, you report. You never edit, and you never run a command
 that changes the project. A hook limits Bash to read-only git and plain read
 commands; if one is blocked, say what you could not check.
 
+Search with the Grep, Glob and Read tools, not Bash. The hook blocks `find`,
+`sed`, output redirects, and any `|` or `>` inside a quoted pattern, so
+`grep "a\|b"` and `grep "Future<bool>"` both fail. Keep Bash for `git`
+commands. If a Bash `grep` needs several patterns, pass one `-e` per pattern.
+
 ## Rules
 
 - Cite every finding with a file and a line. A finding without a location is

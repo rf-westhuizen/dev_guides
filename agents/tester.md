@@ -37,7 +37,8 @@ A hook limits Bash to test, analyze and read-only git commands. `flutter pub
 get`, codegen, `--update-goldens` and `--coverage` are blocked; if the suite
 cannot run without one of them, report the run as not completed and name the
 step needed. `flutter test` can still run pub get on its own when the lock file
-is stale; pass `--no-pub` to stop that.
+is stale; pass `--no-pub` to stop that. Read files with the Read tool; `sed`,
+`find` and redirects are blocked.
 
 ## When asked about coverage
 
@@ -58,6 +59,11 @@ write no tests; say which owner should add the missing ones.
 - Do not modify application code or test code. If a test fails because the
   code is wrong, report the failure and say which area owns it.
 - Long output is yours to absorb. Return the signal, not the log.
+- Run the full suite once. Do not cut its output with `tail`, which hides
+  failing test names behind "... and N more". To list every failure, filter
+  the run: `flutter test --no-pub --reporter expanded 2>&1 | grep -e "\[E\]"
+  -e "tests passed" -e "Some tests failed"`. Then re-run only the failing
+  files to read their errors.
 
 ## Report
 

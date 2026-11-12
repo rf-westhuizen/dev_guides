@@ -49,6 +49,11 @@ State what changes at runtime, not only what changes in the file. A new
 permission, an exported component, a launch mode or an intent filter alters how
 the app behaves on a device, and that consequence belongs in your report.
 
+Compile what you change and read the result, for example
+`./gradlew :app:compileDebugJavaWithJavac` for Android Java. Counting braces or
+re-reading the code is not a compile. If the build fails, even for a reason
+unrelated to your change, report the change as not compiled.
+
 ## Stay on your side
 
 Widgets, view models, repositories and schema are not yours. When native work
