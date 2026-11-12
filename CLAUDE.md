@@ -151,8 +151,13 @@ section exists in `CODEX.md`; change both together.
 
 - Manual-only skills (started by the user, never auto-engaged):
   `/agent-flow <what to build>` runs a feature through the subagents in order
-  with two approval checkpoints; `/review-team <target>` runs a three-lens
-  parallel review.
+  with two approval checkpoints; `/agent-code-review-team <target>` runs a
+  three-lens parallel review; `/agent-topic-teach <topic>` builds a
+  multi-session learning workspace of files (mission, resources, lessons,
+  learning records); `/agent-improve [skill-or-agent] [window]` mines
+  past transcripts of dev_guides-owned skills/agents, scores them on a
+  5-dimension rubric, and drafts (never auto-applies) an instruction edit
+  when a failure recurs across sessions.
 
 - Azure DevOps work-item creation, updates, or re-parenting: the
   `manage-azure-devops-stories` skill (requires the MCP server in

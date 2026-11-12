@@ -1,0 +1,15 @@
+name: Task Success / Correctness
+description: "Whether the agent's work actually solved the stated task and held up, or only appeared to while leaving the task silently incomplete, broken, or papered over."
+labels:
+  - value: "fully_correct"
+    description: "The task was solved as stated: the described behavior works, nothing was silently skipped, and no later turn had to re-open it."
+    score: 1
+  - value: "mostly_correct"
+    description: "The task was solved, but with a minor gap the agent itself caught and fixed, or a small edge case left unhandled that the user never hit."
+    score: 0.8
+  - value: "partially_correct"
+    description: "Part of the task was left undone or wrong and the agent reported success anyway, or the user had to point out the gap before it was addressed."
+    score: 0.4
+  - value: "incorrect_or_fabricated"
+    description: "The agent reported success on work that did not actually happen or did not work (a claimed fix that wasn't applied, a test result that wasn't run, a silently reverted change), or the core task was not accomplished."
+    score: 0.2

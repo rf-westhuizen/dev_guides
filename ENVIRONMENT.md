@@ -62,8 +62,10 @@ New-Item -ItemType Junction -Path "D:\Github\.claude\skills\<name>" -Target "<so
 | `error-replication` | `D:\Github\dev_guides\skills\error-replication` | dev_guides |
 | `pre-pr` | `D:\Github\dev_guides\skills\pre-pr` | dev_guides |
 | `learn` | `D:\Github\dev_guides\skills\learn` | dev_guides |
-| `review-team` | `D:\Github\dev_guides\skills\review-team` | dev_guides |
+| `agent-code-review-team` | `D:\Github\dev_guides\skills\agent-code-review-team` | dev_guides |
 | `agent-flow` | `D:\Github\dev_guides\skills\agent-flow` | dev_guides |
+| `agent-topic-teach` | `D:\Github\dev_guides\skills\agent-topic-teach` | dev_guides |
+| `agent-improve` | `D:\Github\dev_guides\skills\agent-improve` | dev_guides |
 | `manage-azure-devops-stories` | `C:\ClaudePlugins\azure-devops-work-items\skills\manage-azure-devops-stories` | ClaudePlugins (Azure DevOps MCP plugin) |
 
 ## Subagents: one junction for the whole folder

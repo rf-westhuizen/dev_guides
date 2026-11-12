@@ -227,10 +227,14 @@ Treat these as hard gates before asking for review:
 - For scaffolding, copy from `templates/new_package/` or other templates as a
   starting point.
 - `D:/Github/dev_guides/skills/agent-flow/SKILL.md` and
-  `D:/Github/dev_guides/skills/review-team/SKILL.md` drive Claude Code
-  subagents and cannot run as-is in Codex. Codex can still follow
+  `D:/Github/dev_guides/skills/agent-code-review-team/SKILL.md` drive Claude
+  Code subagents and cannot run as-is in Codex. Codex can still follow
   `agent-flow`'s step order and two checkpoints as a checklist, doing each
   step itself.
+- For a multi-session learning workspace of files (mission, resources,
+  lessons, learning records), read
+  `D:/Github/dev_guides/skills/agent-topic-teach/SKILL.md` directly. It runs
+  only when the user asks for it (`/agent-topic-teach <topic>` in Claude Code).
 
 ## Suggested Prompt Pattern
 

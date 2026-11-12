@@ -72,7 +72,7 @@ green or until it is clear the failure needs a user decision.
 > approval before review.
 
 **8. Review.** For a large change, tell the user to run
-`/review-team <target>`, since it is manual-only; otherwise run `/pre-pr`.
+`/agent-code-review-team <target>`, since it is manual-only; otherwise run `/pre-pr`.
 
 ## Final report
 

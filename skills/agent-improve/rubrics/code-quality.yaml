@@ -1,0 +1,15 @@
+name: Code Quality
+description: "Whether the code the agent wrote matches dev_guides' Code Level standard: the architecture it's required to keep, nothing added beyond that without a real use today, and plain code where plain code does the job."
+labels:
+  - value: "clean"
+    description: "Keeps the layering/contracts the standard requires, adds no unused abstraction, generic, or parameter, and reads as the simplest correct version a mid-to-junior engineer could maintain."
+    score: 1
+  - value: "minor_lapses"
+    description: "One small deviation: a slightly denser one-liner where a named variable would read better, or a parameter not yet used by a second caller — nothing that changes behavior or blocks maintenance."
+    score: 0.8
+  - value: "unjustified_complexity"
+    description: "Introduces an interface, wrapper, factory, config flag, or generic with only one real use today, or chooses a clever/dense construct over the plain equivalent the codebase already favors."
+    score: 0.4
+  - value: "violates_architecture"
+    description: "Breaks a required layer boundary (e.g. domain importing Flutter, UI reaching a database directly), lets a DTO or API-specific type leak into a domain interface, or duplicates an existing class/service/value object instead of reusing it."
+    score: 0.2

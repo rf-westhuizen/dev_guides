@@ -1,0 +1,15 @@
+name: Comment Verbosity
+description: "Whether the agent followed the dev_guides Code Level standard for comments: default to none, and add one only when the WHY is non-obvious — a hidden constraint, a subtle invariant, a workaround for a specific bug, or behavior that would surprise a reader. Never a comment explaining WHAT the code does, since well-named identifiers already do that."
+labels:
+  - value: "disciplined"
+    description: "No comments, or every comment present explains a non-obvious WHY (a hidden constraint, invariant, bug workaround, or surprising behavior) that a reader would be confused without."
+    score: 1
+  - value: "minor_excess"
+    description: "One or two comments restate WHAT the code already says through naming, but they are harmless and don't clutter the reading of the function."
+    score: 0.8
+  - value: "habitual_narration"
+    description: "Multiple comments narrate WHAT the code does line by line, or reference the current task/fix/caller (\"used by X\", \"added for the Y flow\"), where removing them would lose nothing a future reader needs."
+    score: 0.4
+  - value: "doc_block_or_padding"
+    description: "Multi-line comment blocks or docstrings on straightforward code, comments that would need updating every time the code changes, or comment volume that competes with the code itself for attention."
+    score: 0.2

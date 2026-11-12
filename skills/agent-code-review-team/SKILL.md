@@ -1,5 +1,5 @@
 ---
-name: review-team
+name: agent-code-review-team
 description: Spawns a three-teammate agent team to review a diff, branch or module in parallel - one on correctness, one on security, one on tests - then synthesises their findings into a single report.
 disable-model-invocation: true
 ---
