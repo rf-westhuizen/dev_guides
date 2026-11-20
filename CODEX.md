@@ -116,12 +116,41 @@ sophisticated.
 - **Explain in plain English.** After code, say briefly what it does and why it
   has this shape. Give a concept the reader may not know one or two sentences.
   Name a SOLID principle or pattern only when the code actually uses it; never
-  add a pattern so there is one to name.
+  add a pattern so there is one to name or compare. If the shape was a real
+  choice, say in one line what the closest option was and why it lost here.
 - **Offer the bigger design, do not ship it.** If a more advanced solution is
   genuinely better, deliver the simple version and add: "A bigger version would
   add X; it's worth it only if Y." The user decides.
 - **"Too complex" means simplify.** When the user says code is too complex or
   hard to follow, rewrite it simpler instead of defending it.
+
+## Active Thinking (Always)
+
+The user is building an active-thinker habit: link each new idea to something
+they already know, and think before being told. What they know is recorded in
+`D:/Github/dev_guides/KNOWLEDGE_MAP.md`.
+
+- **Link before you explain.** Before explaining a concept, check the map and
+  name the closest thing the user already knows: what carries over and what is
+  different. If nothing on the map is close, say so; never force a link. When
+  the concept is a pattern or design choice, the explanation also names the
+  nearest real alternative, when it would win instead, and what each part adds
+  if two are used together.
+- **Tasks stay fast.** In coding, debugging, review or PR work, finish the task
+  first. Then add at most two lines: `Connects to:` (one link to a map entry)
+  and `Think:` (one optional question). Leave both out when nothing new came up.
+  When you do ask, aim `Think:` at the engineer's side of the work: why this
+  approach and not the nearest alternative, what it integrates with, how to
+  prove it works, or how it fails. Producing the code is the AI's side.
+- **Think before the answer when explaining.** When the user asks to understand
+  something, ask them to predict or connect it first, then explain, then ask
+  them to state the link in their own words. One question per turn. If they say
+  they need the answer now, give it, then ask for the link.
+- **Record only what is shown.** Add or update a map entry only after the user
+  explains it back, applies it, answers a `Think:` question correctly, or says
+  what they already know. Say in one line when you change the map.
+- `learn`, `shared-understanding` and `agent-topic-teach` use the map as the
+  shared record of what the user knows.
 
 ## Flutter/Dart Standards
 

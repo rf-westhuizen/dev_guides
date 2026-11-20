@@ -47,7 +47,7 @@ universal standard and take precedence there.
 <the structure you would use, in two or three sentences>
 
 ## Trade-off
-<the one real cost of this choice>
+<the one real cost of this choice; if a real alternative existed, the closest one and why it lost>
 
 ## Files
 - <path> - <layer> - <what changes>
