@@ -65,6 +65,13 @@ Android native (Kotlin/Java, Gradle, manifests, Pigeon).
 - Evidence: self-reported: has worked with it hands-on, but the fundamentals are not solid (2026-11-18)
 - Connects to (suggested): Dart language - builds on: a network call takes time, which is why Dart returns a `Future` and code uses `await`
 
+### CIDR ranges and firewall source filtering
+- Area: Other (networking)
+- Depth: shaky
+- Evidence: applied it: picked the laptop (100.101.7.42) over the TV (192.168.1.50) as the one the SSH rule `-RemoteAddress 100.64.0.0/10` lets in, because it is inside the range (2026-11-21)
+- Connects to (suggested): MQTT - same idea: `home/#` fixes the start of a topic and matches the rest, as `/10` fixes the first 10 bits of an address and matches the rest
+- Mixed up with: `/10` as "0 to 10" (it is the count of fixed bits out of 32), and `-RemoteAddress` as the address the server listens on (it is the caller's address the firewall checks)
+
 ### Serial communication
 - Area: Other (hardware)
 - Depth: can use

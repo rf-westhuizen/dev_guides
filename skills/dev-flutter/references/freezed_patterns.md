@@ -4,7 +4,8 @@
 > Key migration rules from 2.x:
 > - Single-constructor classes: `class` → `abstract class`
 > - Union types: `class` → `sealed class`
-> - `when()`/`map()` methods are **removed** — use Dart 3 pattern matching
+> - `when()`/`map()` were removed in 3.0.0 and added back in 3.1.0; still use
+>   Dart 3 pattern matching
 > - `_PrivateName` redirected constructors now require public names for
 >   union variants (e.g., `= PaymentInitial` not `= _Initial`)
 
@@ -37,7 +38,7 @@ abstract class User with _$User {
     @Default(UserRole.standard) UserRole role,
   }) = _User;
 
-  // Add fromJson ONLY if this is a DTO (infrastructure layer)
+  // Add fromJson ONLY if this is a DTO (data layer)
   // Domain entities do NOT have fromJson
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }
@@ -76,7 +77,7 @@ Widget buildStatus(PaymentState state) {
   };
 }
 
-// NEVER — when/map are REMOVED in Freezed 3.0
+// NEVER — team rule: use switch, not when/map
 // state.when(initial: () => ..., processing: (id) => ...);
 ```
 
@@ -112,7 +113,7 @@ abstract class EmailAddress with _$EmailAddress {
 }
 ```
 
-## DTOs with JSON (Infrastructure Layer ONLY)
+## DTOs with JSON (Data Layer ONLY)
 
 ```dart
 @freezed

@@ -79,7 +79,7 @@ One DAO per table or logical group. Annotate with `@DriftAccessor`.
 
 @DriftAccessor(tables: [TransactionLogs])
 class TransactionLogsDao extends DatabaseAccessor<AppDatabase>
-    with _$TransactionLogsDaoMixin {
+    with $TransactionLogsDaoMixin {
 
   TransactionLogsDao(super.attachedDatabase);
 
@@ -126,7 +126,7 @@ class TransactionLogsDao extends DatabaseAccessor<AppDatabase>
 // file: lib/src/database/app_database.dart
 
 @DriftDatabase(tables: [TransactionLogs, ScotchErrors], daos: [TransactionLogsDao])
-class AppDatabase extends _$AppDatabase {
+class AppDatabase extends $AppDatabase {
   AppDatabase(super.e);
 
   @override
@@ -204,7 +204,8 @@ void main() {
 
   test('upgrade from v1 to v3', () async {
     final connection = await verifier.startAt(1);
-    await verifier.migrateAndValidate(connection, 3);
+    final db = AppDatabase(connection);
+    await verifier.migrateAndValidate(db, 3);
   });
 }
 ```
@@ -214,9 +215,10 @@ void main() {
 ```dart
 AppDatabase createTestDatabase() {
   return AppDatabase(
-    NativeDatabase.memory(
-      // CRITICAL: prevents timer leak errors in Flutter widget tests
-      setup: (db) => db.execute('PRAGMA journal_mode=WAL'),
+    DatabaseConnection(
+      NativeDatabase.memory(),
+      // Widget tests fail if Drift keeps a stream timer open after the test.
+      closeStreamsSynchronously: true,
     ),
   );
 }

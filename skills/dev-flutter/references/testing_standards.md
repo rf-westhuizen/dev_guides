@@ -81,7 +81,7 @@ void main() {
     await container.read(basketViewModelProvider.notifier).addItem('sku-1');
 
     expect(
-      container.read(basketViewModelProvider).valueOrNull?.lines,
+      container.read(basketViewModelProvider).value?.lines,
       [existingLine],
     );
   });

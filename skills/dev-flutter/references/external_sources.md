@@ -21,11 +21,11 @@
 - Dart 3 Records: https://dart.dev/language/records
 
 ### Riverpod
-- Getting Started: https://riverpod.dev/docs/introduction/getting-started
-- Concepts: https://riverpod.dev/docs/concepts/providers
+- Getting Started: https://riverpod.dev/docs/introduction/getting_started
+- Concepts: https://riverpod.dev/docs/concepts2/providers
 - Migration: https://riverpod.dev/docs/migration/from_state_notifier
-- Code Generation: https://riverpod.dev/docs/concepts/about-code-generation
-- Testing: https://riverpod.dev/docs/essentials/testing
+- Code Generation: https://riverpod.dev/docs/concepts/about_code_generation
+- Testing: https://riverpod.dev/docs/how_to/testing
 
 ## OPTIONAL Sources (Reference)
 
@@ -48,8 +48,8 @@
 - Observer Pattern: https://refactoring.guru/design-patterns/observer
 
 ### VGV Engineering
-- Philosophy: https://engineering.verygood.ventures/engineering/philosophy/
-- Architecture: https://engineering.verygood.ventures/architecture/
+- Philosophy: https://engineering.verygood.ventures/general-practices/philosophy
+- Architecture: https://engineering.verygood.ventures/architecture/architecture
 - Testing: https://engineering.verygood.ventures/development/testing/testing_overview/
 
 ### Testing Packages
@@ -57,7 +57,6 @@
 - very_good_analysis: https://pub.dev/packages/very_good_analysis
 
 ### Error Handling
-- dartz (ErrorOr/Either): https://pub.dev/packages/dartz
 - fpdart: https://pub.dev/packages/fpdart
 
 ## When to Consult These Sources

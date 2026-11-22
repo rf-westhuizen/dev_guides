@@ -7,14 +7,15 @@ Central glossary for shared domain terminology used across projects.
 | dev_guides | Ubiquitous Language | Shared vocabulary used by conversation, planning, and code so everyone speaks from the same domain model. | `UBIQUITOUS_LANGUAGE.md`, `ubiquitous-language` | Documentation | Seed term |
 | dev_guides | Shared Understanding | Collaboration style for aligning goals, constraints, decisions, and learning before implementation. | `shared-understanding` | Skill | Seed term |
 | dev_guides | Plan Mode | Planning-only workflow where the agent explores and asks questions before producing a decision-complete plan. | `<proposed_plan>` | Workflow | Seed term |
-| dev_guides | Learning Tracker | Compact record of what was learned, what to review next, and what remains unclear. | `Learned`, `Review Next`, `Open Questions` | Skill | Seed term |
+| dev_guides | Learning Tracker | Compact record of what was learned, what to review next, and what remains unclear. | `Learned`, `Connects to`, `Review Next`, `Open Questions` | Skill | Seed term |
+| dev_guides | Knowledge Map | Cross-topic record of what the user has shown they know and how those topics link. | `KNOWLEDGE_MAP.md` | Skill | Read by the "Active Thinking (Always)" rule; per-topic detail stays in agent-topic-teach learning records |
 | dev_guides | DDD | Design approach that keeps business concepts central and separates domain rules from infrastructure details. | `domain/`, entities, value objects, contracts | Architecture | Core Flutter standard |
 | dev_guides | MVVM | UI architecture where views render state and ViewModels coordinate user actions and state changes. | `presentation/*_view_model.dart` | Architecture | Core Flutter standard |
 | dev_guides | Domain Layer | Pure Dart layer for business entities, value objects, failures, state, and contracts. | `features/*/domain/` | Domain | No Flutter imports |
 | dev_guides | Data Layer | Infrastructure layer for APIs, databases, DTOs, DAOs, services, and repository implementations. | `features/*/data/` | Data | Maps external details to domain types |
 | dev_guides | Presentation Layer | UI layer for widgets, screens, and screen-facing ViewModels. | `features/*/presentation/` | Presentation | Business logic stays out of widgets |
 | dev_guides | Providers Layer | Riverpod dependency wiring between data implementations and presentation ViewModels. | `features/*/providers/` | Providers | Feature-scoped DI |
-| dev_guides | ViewModel | Presentation coordinator that exposes UI state and calls domain/application contracts. | `BasketViewModel`, `*_view_model.dart` | Presentation | Should not call raw services directly |
+| dev_guides | ViewModel | Presentation coordinator that exposes UI state and calls domain contracts. | `BasketViewModel`, `*_view_model.dart` | Presentation | Should not call raw services directly |
 | dev_guides | Entity | Domain object with business meaning and identity or lifecycle. | Domain model classes | Domain | Needs project-specific examples |
 | dev_guides | Value Object | Typed domain wrapper for meaningful primitives such as money, SKU, transaction ID, or receipt ID. | `Money`, `Sku` | Domain | Prevents primitive obsession |
 | dev_guides | DTO | Data transfer shape for API, listener, or persistence boundaries. | `fromJson`, `toJson`, `dtos/` | Data | Must not leak into domain contracts |

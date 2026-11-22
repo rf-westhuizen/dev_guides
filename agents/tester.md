@@ -23,8 +23,9 @@ record of it.
 
 Do not guess the command. Determine it from the project:
 
-- A `melos.yaml` at the repository root means a Melos monorepo. The declared
-  scripts are the source of truth; `melos run test:all` and `melos run analyze`
+- A `melos:` key in the root `pubspec.yaml` (Melos 7+) or a root `melos.yaml`
+  (older Melos) means a Melos monorepo. The declared
+  scripts are the source of truth; `melos run test` and `melos run analyze`
   are the usual entry points, but read the file rather than assuming.
 - A single package with a `pubspec.yaml` uses `flutter test` or `dart test`,
   and `flutter analyze` or `dart analyze`.

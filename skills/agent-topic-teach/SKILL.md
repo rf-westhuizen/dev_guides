@@ -96,8 +96,11 @@ Each lesson, the user should always feel as if they are being challenged 'just e
 The user may specify an exact thing they want to learn. If they don't, figure out their zone of proximal development by:
 
 - Reading their `learning-records`
+- Reading `D:/Github/dev_guides/KNOWLEDGE_MAP.md` for what they know outside this topic, so a lesson can start from something familiar
 - Figuring out the right thing to teach them based on their mission
 - Teach the most relevant thing that fits in their zone of proximal development
+
+`learning-records` are the detailed record for this topic, and `KNOWLEDGE_MAP.md` is the record across topics. When you write a learning record because the user showed understanding or stated prior knowledge, also add or update the matching map entry, linking it to a topic outside this workspace where one fits.
 
 ## Knowledge
 

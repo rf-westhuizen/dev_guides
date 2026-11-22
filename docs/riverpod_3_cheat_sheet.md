@@ -26,8 +26,10 @@ dev_dependencies:
   build_runner: ^2.4.0
   riverpod_generator: ^3.0.0
   riverpod_lint: ^3.0.0
-  custom_lint: ^0.7.0
 ```
+
+From 3.1.0, `riverpod_lint` runs as an analysis server plugin and no longer
+uses `custom_lint`.
 
 Use the latest compatible versions for the app, but keep the major version on
 Riverpod 3.x.

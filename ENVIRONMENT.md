@@ -66,6 +66,7 @@ New-Item -ItemType Junction -Path "D:\Github\.claude\skills\<name>" -Target "<so
 | `agent-flow` | `D:\Github\dev_guides\skills\agent-flow` | dev_guides |
 | `agent-topic-teach` | `D:\Github\dev_guides\skills\agent-topic-teach` | dev_guides |
 | `agent-improve` | `D:\Github\dev_guides\skills\agent-improve` | dev_guides |
+| `coding-refresh` | `D:\Github\dev_guides\skills\coding-refresh` | dev_guides |
 | `manage-azure-devops-stories` | `C:\ClaudePlugins\azure-devops-work-items\skills\manage-azure-devops-stories` | ClaudePlugins (Azure DevOps MCP plugin) |
 
 ## Subagents: one junction for the whole folder
@@ -93,9 +94,9 @@ and flags that write files or run programs, such as `--output`,
 2, and the agent sees the reason. Edit the allowlist in the script, not in the
 agents.
 
-Frontmatter hooks apply when the agent runs as a subagent. `review-team`
-teammates don't get preloaded skills and may not get hooks either, so its spawn
-prompts keep the "change nothing" instruction as a backstop.
+Frontmatter hooks apply when the agent runs as a subagent, not as a teammate.
+`agent-code-review-team` teammates get neither preloaded skills nor hooks, so
+the "change nothing" instruction in its spawn prompts is the only Bash guard.
 
 ## Project-level junction: scotch-flutter
 
@@ -105,8 +106,11 @@ prompts keep the "change nothing" instruction as a backstop.
 |---|---|
 | `D:/Github/scotch_software/.claude/skills/scotch-flutter` | `D:/Github/dev_guides/skills/scotch-flutter` |
 
-Project skills load only in sessions started at or below that repository, so the
-monorepo standard is live inside `scotch_software` and absent everywhere else.
+Project skills load at startup in sessions started at or below that repository.
+A session started higher up, such as in `D:/Github`, loads them the first time
+Claude reads or edits a file inside `scotch_software`, or straight away with
+`/add-dir`. Either way, `scotch-flutter` applies only to work in or below
+`scotch_software`; sessions that never touch the monorepo don't see it.
 This replaces the earlier approach of deliberately withholding a junction and
 reading the file by absolute path, which left the skill invisible to the Skill
 tool and dependent on `CLAUDE.md` prose to apply at all.

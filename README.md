@@ -7,6 +7,7 @@ and AI-assisted development workflows.
 
 ```text
 dev_guides/
+|-- agents/                              # Subagents: architect, backend, debugger, reviewer, ...
 |-- skills/
 |   |-- dev-flutter/                     # Universal Flutter/Dart skill
 |   |   |-- SKILL.md                     # Main skill (architecture, rules, gotchas)
@@ -21,6 +22,12 @@ dev_guides/
 |   |       |-- external_sources.md      # Official doc links
 |   |       `-- analysis_options.md      # Lint rules, static analysis
 |   |
+|   |-- learn/                           # One-session tutor: teach, ELI5, quiz me
+|   |   `-- SKILL.md
+|   |
+|   |-- agent-topic-teach/               # /agent-topic-teach: multi-session learning workspace
+|   |   `-- SKILL.md                     # Plus mission, resources, glossary, record formats
+|   |
 |   |-- shared-understanding/            # Planning, teaching, explanations
 |   |   `-- SKILL.md
 |   |
@@ -30,6 +37,13 @@ dev_guides/
 |   |-- grill-with-docs/                 # Plan grilling with CONTEXT.md and ADRs
 |   |   |-- SKILL.md                     # Interview workflow and doc update rules
 |   |   `-- references/                  # ADR and CONTEXT formats
+|   |
+|   |-- error-replication/               # Reproduce-first debugging
+|   |-- pre-pr/                          # Commit and PR readiness check
+|   |-- agent-flow/                      # /agent-flow: build a feature through the subagents
+|   |-- agent-code-review-team/          # /agent-code-review-team: four-lens review
+|   |-- agent-improve/                   # /agent-improve: improve skills from past transcripts
+|   |-- coding-refresh/                  # /coding-refresh: check guides against official docs
 |   |
 |   `-- scotch-flutter/                  # Scotch Software monorepo-specific
 |       |-- SKILL.md                     # Monorepo conventions, package patterns
@@ -57,9 +71,14 @@ dev_guides/
 |       |-- providers/                   # State Management logic
 |       `-- presentation/                # Holds the View and ViewModel files
 |
-|-- docs/                                # PDFs, architecture diagrams
+|-- docs/                                # Learning docs: oop_solid_dart.md, riverpod_3_cheat_sheet.md
+|-- scripts/                             # Read-only Bash guard hook and its test
 |-- CLAUDE.md                            # Claude Code global instructions
 |-- CODEX.md                             # Codex global instructions
+|-- ENVIRONMENT.md                       # How skills and agents are wired up on this machine
+|-- KNOWLEDGE_MAP.md                     # What you already know and how topics connect
+|-- PROMPTS.md                           # Ready-made prompts
+|-- UBIQUITOUS_LANGUAGE.md               # Shared glossary
 `-- README.md                            # This file
 ```
 
@@ -95,10 +114,11 @@ decision-shaping question at a time, recommends an answer, updates `CONTEXT.md`
 when terms are resolved, and offers ADRs only for decisions that are hard to
 reverse, surprising without context, and the result of a real trade-off.
 
-**Not installed as a live skill — read the file.** grill-with-docs has no junction
-in `.claude/skills`, so it does not auto-activate and has no slash command. Invoke it
-by reading `D:\Github\dev_guides\skills\grill-with-docs\SKILL.md` directly (see the
-ready-made prompts in `PROMPTS.md`).
+Installed as a live skill through the junction in `D:\Github\.claude\skills` (see
+`ENVIRONMENT.md`). In Claude Code it starts on its own when you ask to grill or
+stress-test a plan, or you can run `/grill-with-docs`. Codex has no skill
+mechanism, so it reads `skills\grill-with-docs\SKILL.md` directly (see
+`PROMPTS.md`).
 
 ### `shared-understanding` - Planning, teaching, and explanations
 
@@ -109,6 +129,29 @@ support, or architecture trade-off discussion.
 
 Use when you want to extract, align, or update domain terminology in
 `D:\Github\dev_guides\UBIQUITOUS_LANGUAGE.md`.
+
+### `learn` and `agent-topic-teach` - Learning a topic
+
+- `learn` tutors you in chat for one session. It starts on its own when you ask
+  to be taught, say "ELI5" or "quiz me", or say a concept won't stick. It saves
+  no files.
+- `agent-topic-teach` teaches a whole topic over several sessions. Start it with
+  `/agent-topic-teach <topic>`. It keeps a workspace of files (mission, trusted
+  resources, HTML lessons, glossary, learning records) and picks the next lesson
+  from what you have shown you understand.
+- For reading on your own, `docs/oop_solid_dart.md` teaches OOP and SOLID with
+  Dart examples, and `docs/riverpod_3_cheat_sheet.md` is a Riverpod quick
+  reference.
+- `KNOWLEDGE_MAP.md` records what you already know and how topics connect. The
+  "Active Thinking (Always)" rule in `CLAUDE.md` and `CODEX.md` uses it so every
+  explanation starts from something familiar, and tasks end with an optional
+  `Connects to:` / `Think:` pair.
+
+### Other skills and agents
+
+The Skill Routing table and Further Reading section in `CLAUDE.md` say when each
+remaining skill starts and which ones are manual slash commands. `ENVIRONMENT.md`
+explains how the skills and the subagents in `agents/` are wired up.
 
 ## How to Use
 
@@ -155,7 +198,7 @@ Symlink the relevant skills into any project's `.claude/skills/`:
 mklink /D ".claude\skills\dev-flutter" "D:\Github\dev_guides\skills\dev-flutter"
 mklink /D ".claude\skills\shared-understanding" "D:\Github\dev_guides\skills\shared-understanding"
 mklink /D ".claude\skills\ubiquitous-language" "D:\Github\dev_guides\skills\ubiquitous-language"
-# grill-with-docs is intentionally NOT linked — read its SKILL.md file directly instead.
+mklink /D ".claude\skills\grill-with-docs" "D:\Github\dev_guides\skills\grill-with-docs"
 ```
 
 ### With Claude.ai (Web Interface)

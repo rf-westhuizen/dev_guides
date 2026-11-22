@@ -252,7 +252,7 @@ class TransactionLogs extends Table {
 - NEVER hardcode device-specific values (use hooks pattern)
 - NEVER use `SCREAMING_CAPS` for constants (use `lowerCamelCase`)
 - NEVER use bare `class` with `@freezed` (use `abstract class` or `sealed class`)
-- NEVER use `when()`/`map()` on Freezed unions (removed in 3.0 — use Dart 3 switch)
+- NEVER use `when()`/`map()` on Freezed unions (use Dart 3 switch)
 
 ## Hooks Pattern for Cross-Package Decoupling
 
@@ -290,9 +290,8 @@ SqlitePostgresqlConnectorHooks.versionFunction = () => DeviceInfo.version;
 ```bash
 melos bootstrap              # Install deps + link local packages
 melos run analyze            # Run dart analyze across all packages
-melos run test:all           # Run all tests
+melos run test               # Run all tests
 melos run codegen            # Run build_runner in all packages that need it
-melos run codegen_raw        # Cross-platform codegen via Dart helper script
 ```
 
 For full Melos configuration and custom scripts, read `references/melos_tooling.md`.

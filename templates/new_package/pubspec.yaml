@@ -1,4 +1,5 @@
 name: my_new_package
+resolution: workspace
 description: A new package in the Scotch Software monorepo.
 version: 0.1.0
 publish_to: none
@@ -11,10 +12,10 @@ dependencies:
   flutter:
     sdk: flutter
   # Riverpod
-  flutter_riverpod: ^2.6.0
-  riverpod_annotation: ^2.6.0
+  flutter_riverpod: ^3.0.3
+  riverpod_annotation: ^3.0.0
   # Freezed (runtime)
-  freezed_annotation: ^2.4.0
+  freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
 
 dev_dependencies:
@@ -22,10 +23,10 @@ dev_dependencies:
     sdk: flutter
   # Codegen
   build_runner: ^2.4.0
-  riverpod_generator: ^2.6.0
-  freezed: ^2.5.0
+  riverpod_generator: ^3.0.0
+  freezed: ^3.0.0
   json_serializable: ^6.8.0
   # Testing
   mocktail: ^1.0.0
   # Linting
-  very_good_analysis: ^7.0.0
+  flutter_lints: ^6.0.0

@@ -4,7 +4,7 @@ description: Scores a batch of mined Claude Code transcript excerpts against the
 tools: Read, Grep, Glob
 model: inherit
 effort: high
-color: teal
+color: cyan
 ---
 
 Transcript reviewer. Scores past agent work against a fixed rubric and cites

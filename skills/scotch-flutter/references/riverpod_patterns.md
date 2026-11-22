@@ -142,7 +142,7 @@ ref.listen(paymentControllerProvider, (previous, next) {
 // Only rebuilds when the status changes, not when other fields change
 final status = ref.watch(
   paymentControllerProvider.select(
-    (state) => state.valueOrNull?.status,
+    (state) => state.value?.status,
   ),
 );
 ```

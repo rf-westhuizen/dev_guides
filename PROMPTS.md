@@ -92,13 +92,13 @@ Use D:\Github\dev_guides\CLAUDE.md and the relevant dev_guides skills for this p
 ### Codex
 
 ```text
-Use D:\Github\dev_guides\CODEX.md and D:\Github\dev_guides\skills\dev-flutter\SKILL.md as the guide for this project. Explain how this feature in D:\Github\todo_list should be structured across presentation, application, domain, and infrastructure before we implement it.
+Use D:\Github\dev_guides\CODEX.md and D:\Github\dev_guides\skills\dev-flutter\SKILL.md as the guide for this project. Explain how this feature in D:\Github\todo_list should be structured across its feature folder's domain, data, providers, and presentation layers before we implement it.
 ```
 
 ### Claude
 
 ```text
-Use D:\Github\dev_guides\CLAUDE.md and D:\Github\dev_guides\skills\dev-flutter\SKILL.md as the guide for this project. Explain how this feature in D:\Github\todo_list should be structured across presentation, application, domain, and infrastructure before we implement it.
+Use D:\Github\dev_guides\CLAUDE.md and D:\Github\dev_guides\skills\dev-flutter\SKILL.md as the guide for this project. Explain how this feature in D:\Github\todo_list should be structured across its feature folder's domain, data, providers, and presentation layers before we implement it.
 ```
 
 

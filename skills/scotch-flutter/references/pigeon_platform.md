@@ -82,7 +82,15 @@ public class TrampolineActivity extends Activity {
             resultSent = true;
             if (resultCode == RESULT_OK && data != null) {
                 PaymentResponse response = parseResponse(data);
-                flutterApi.onPaymentResult(response, reply -> {});
+                flutterApi.onPaymentResult(response, new PaymentApi.VoidResult() {
+                    @Override
+                    public void success() {}
+
+                    @Override
+                    public void error(@NonNull Throwable error) {
+                        Log.e("TrampolineActivity", "onPaymentResult failed", error);
+                    }
+                });
             } else {
                 sendFailureResult("Transaction cancelled or failed");
             }
@@ -177,8 +185,8 @@ String formatForNewlands(int amountInCents) =>
 adb logcat | Select-String "smartpos|INTENT"
 
 # Attach Java debugger
-$pid = (adb shell pidof com.scotch.standardbank).Trim()
-adb forward tcp:5005 jdwp:$pid
+$appPid = (adb shell pidof com.scotch.standardbank).Trim()
+adb forward tcp:5005 jdwp:$appPid
 # Then connect IntelliJ Remote JVM Debug to localhost:5005
 
 # Check if POS app is installed

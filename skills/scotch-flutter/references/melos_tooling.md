@@ -18,26 +18,18 @@ D:/Github/scotch_software/
 │   ├── device_info_fetcher/
 │   ├── yaml_parser_fetcher/
 │   └── pilot_light/
-├── melos.yaml
-├── pubspec.yaml                  # Dart workspace root
+├── pubspec.yaml                  # Dart workspace root and Melos config
 ├── analysis_options.yaml         # Shared lint config
 └── CLAUDE.md                     # Claude Code instructions
 ```
 
-## melos.yaml Configuration
+## Melos Configuration (root pubspec.yaml)
+
+Melos 7 has no `melos.yaml`. It reads the `melos:` key of the root
+`pubspec.yaml`, and its package list comes from the `workspace:` key.
 
 ```yaml
-name: scotch_software
-repository: https://github.com/scotch-software/scotch_software
-
-packages:
-  - "apps/*"
-  - "packages/*"
-
-command:
-  bootstrap:
-    usePubspecOverrides: true
-
+# Excerpt: these keys sit under `melos:` in the root pubspec.yaml
 scripts:
   # Static analysis
   analyze:
@@ -45,23 +37,18 @@ scripts:
     description: Run dart analyze across all packages
 
   # Run all tests
-  test:all:
+  test:
     run: melos exec --fail-fast -- flutter test
     packageFilters:
       dirExists: test
     description: Run tests in all packages that have a test directory
 
-  # Code generation — cross-platform via Dart helper
+  # Code generation
   codegen:
     run: melos exec -- dart run build_runner build --delete-conflicting-outputs
     packageFilters:
       dependsOn: build_runner
     description: Run build_runner in all packages that depend on it
-
-  # Cross-platform codegen (Windows/cmd compatible)
-  codegen_raw:
-    run: dart run tools/codegen_helper.dart
-    description: Cross-platform codegen via Dart helper script
 
   # Format all Dart files
   format:
@@ -89,7 +76,7 @@ melos bootstrap
 melos run analyze
 
 # Run all tests with fail-fast
-melos run test:all
+melos run test
 
 # Run codegen in all packages that need it
 melos run codegen
@@ -130,53 +117,14 @@ workspace:
   - packages/pilot_light
 ```
 
-## Cross-Platform Codegen Helper (Windows Fix)
-
-Because Windows `cmd.exe` doesn't support `&&` chaining the same way,
-use a Dart helper script:
-
-```dart
-// tools/codegen_helper.dart
-import 'dart:io';
-
-void main() async {
-  final packages = Directory('packages')
-      .listSync()
-      .whereType<Directory>()
-      .where((d) => File('${d.path}/build.yaml').existsSync() ||
-          _hasBuildRunnerDep(d));
-
-  for (final pkg in packages) {
-    print('Running codegen in ${pkg.path}...');
-    final result = await Process.run(
-      'dart',
-      ['run', 'build_runner', 'build', '--delete-conflicting-outputs'],
-      workingDirectory: pkg.path,
-    );
-    stdout.write(result.stdout);
-    stderr.write(result.stderr);
-    if (result.exitCode != 0) {
-      exit(result.exitCode);
-    }
-  }
-}
-
-bool _hasBuildRunnerDep(Directory dir) {
-  final pubspec = File('${dir.path}/pubspec.yaml');
-  if (!pubspec.existsSync()) return false;
-  return pubspec.readAsStringSync().contains('build_runner');
-}
-```
-
 ## Adding a New Package
 
 1. Create directory under `packages/`
-2. Add `pubspec.yaml` with dependencies
-3. Add `analysis_options.yaml` (include shared config)
+2. Add `pubspec.yaml` with `resolution: workspace` and its dependencies
+3. Add `analysis_options.yaml` that includes `package:flutter_lints/flutter.yaml`
 4. Add to root `pubspec.yaml` workspace list
-5. Add to `melos.yaml` if using specific package globs
-6. Run `melos bootstrap`
-7. Verify with `melos list`
+5. Run `melos bootstrap`
+6. Verify with `melos list`
 
 ## CI Pipeline Order
 
@@ -184,7 +132,7 @@ bool _hasBuildRunnerDep(Directory dir) {
 melos bootstrap
 melos run format -- --set-exit-if-changed
 melos run analyze
-melos run test:all
+melos run test
 ```
 
 ## Environment Reset & Clean Build

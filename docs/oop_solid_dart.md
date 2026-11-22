@@ -450,6 +450,11 @@ final class InvoiceRepositoryImpl implements InvoiceRepository {
   const InvoiceRepositoryImpl(this._dao);
 
   final InvoiceDao _dao;
+
+  @override
+  Future<Invoice?> findById(String id) {
+    return _dao.findById(id);
+  }
 }
 ```
 

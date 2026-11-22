@@ -51,9 +51,10 @@ class TodoListViewModel extends _$TodoListViewModel {
   @override
   Future<List<Todo>> build() async {
     final repository = ref.read(todoRepositoryProvider);
-    ref.listenManual(repository.watchAll(), (todos) {
+    final subscription = repository.watchAll().listen((todos) {
       state = AsyncValue.data(todos);
     });
+    ref.onDispose(subscription.cancel);
     return repository.getAll();
   }
 }

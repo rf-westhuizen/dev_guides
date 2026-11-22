@@ -3,10 +3,10 @@ name: shared-understanding
 description: >
   Collaborative planning, concept explanation, and learning-support skill for
   reaching shared understanding with the user. Use when the user asks for
-  Plan Mode refinement, /grill-me, interview-style clarification, shared
-  understanding, code explanation, learning tracking, architecture tradeoff
-  discussion, or help understanding Dart, Flutter, SQL, Java, Kotlin,
-  Riverpod, Drift, DDD, or MVVM concepts.
+  Plan Mode refinement, interview-style clarification, shared understanding,
+  code explanation, learning tracking, architecture tradeoff discussion, or
+  help understanding Dart, Flutter, SQL, Java, Kotlin, Riverpod, Drift, DDD,
+  or MVVM concepts.
 ---
 
 # Shared Understanding
@@ -29,17 +29,23 @@ Use this skill to keep collaboration clear, compact, and grounded.
 5. State decisions plainly and record assumptions.
 6. If context is missing, say `I don't know` and suggest the next step.
 
+To grill a plan against `CONTEXT.md`, `CONTEXT-MAP.md` and ADRs, or to record
+resolved terms and decisions in them, use `grill-with-docs`
+(`D:/Github/dev_guides/skills/grill-with-docs/SKILL.md`) instead.
+
 ## Plan Mode Behavior
 
 - Do not mutate files while Plan Mode is active.
 - Use non-mutating inspection to reduce unknowns.
 - Ask focused questions only after inspection.
-- Keep a visible question budget when using `/grill-me`.
+- Keep a visible question budget during interview-style clarification.
 - End with one decision-complete `<proposed_plan>` block.
 
 ## Explanation Style
 
 - Explain concepts in plain English.
+- Start from the closest topic in `D:/Github/dev_guides/KNOWLEDGE_MAP.md`, as
+  set out in "Active Thinking (Always)" in `D:/Github/dev_guides/CLAUDE.md`.
 - Pitch explanations and examples at the level set in "Code Level" in
   `D:/Github/dev_guides/CLAUDE.md`: a mid-to-junior engineer.
 - Use small code examples when useful.
@@ -55,6 +61,9 @@ When teaching or explaining, end with a compact tracker:
 Learned:
 - ...
 
+Connects to:
+- <new idea> -> <topic from KNOWLEDGE_MAP.md>: <same idea | builds on | contrast>
+
 Review Next:
 - ...
 
@@ -62,7 +71,8 @@ Open Questions:
 - ...
 ```
 
-Keep the tracker short and practical.
+Keep the tracker short and practical. When the user shows they understand a
+Learned item, add or update its entry in `D:/Github/dev_guides/KNOWLEDGE_MAP.md`.
 
 ## Reasoning Style
 

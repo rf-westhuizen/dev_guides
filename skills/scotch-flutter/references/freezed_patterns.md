@@ -4,7 +4,8 @@
 > Key migration rules from 2.x:
 > - Single-constructor classes: `class` → `abstract class`
 > - Union types: `class` → `sealed class`
-> - `when()`/`map()` methods are **removed** — use Dart 3 pattern matching
+> - `when()`/`map()` were removed in 3.0.0 and added back in 3.1.0; still use
+>   Dart 3 pattern matching
 > - `_PrivateName` redirected constructors now require public names for
 >   union variants (e.g., `= PaymentInitial` not `= _Initial`)
 
@@ -46,7 +47,7 @@ abstract class User with _$User {
 ## Union Types (Sealed Classes) for State
 
 Use Freezed unions for state that has distinct variants. Use Dart 3
-pattern matching (`switch`) — `when`/`map` are removed in Freezed 3.0.
+pattern matching (`switch`), not `when`/`map`.
 
 ```dart
 @freezed
@@ -70,7 +71,7 @@ sealed class PaymentState with _$PaymentState {
 ### Consuming Union Types — Dart 3 Pattern Matching (ONLY approach)
 
 ```dart
-// Dart 3 switch expression — the ONLY way in Freezed 3.0+
+// Dart 3 switch expression — the only approach we use
 Widget buildPaymentStatus(PaymentState state) {
   return switch (state) {
     PaymentInitial() => const Text('Ready to pay'),
@@ -87,7 +88,7 @@ Widget buildPaymentStatus(PaymentState state) {
 ```
 
 ```dart
-// NEVER — when/map are REMOVED in Freezed 3.0. Do NOT use.
+// NEVER — team rule: use switch, not when/map. Do NOT use.
 // state.when(initial: () => ..., processing: (id) => ...);
 ```
 

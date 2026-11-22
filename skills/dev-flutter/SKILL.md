@@ -144,7 +144,7 @@ sealed class AuthState with _$AuthState {
 }
 ```
 
-**Dart 3 pattern matching** - ALWAYS use `switch` over removed `when()`/`map()`:
+**Dart 3 pattern matching** - ALWAYS use `switch`, never `when()`/`map()`:
 ```dart
 return switch (state) {
   AuthUnauthenticated() => const LoginScreen(),
